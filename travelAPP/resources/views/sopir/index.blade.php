@@ -1,40 +1,46 @@
 @extends('layout.main')
 
-@section('title','Rute')
+@section('title','Sopir')
 
 @section('content')
 <br>
 <div class="card m-4 p-3">
     <div class="card-header mb-3 d-flex justify-content-between align-items-center">
-        <h5 class="card-title mb-0">Rute Perjalanan</h5>
+        <h5 class="card-title mb-0">Daftar Sopir</h5>
         <input type="text" id="searchInput" class="form-control form-control-sm" style="width: 200px;" placeholder="Pencarian">
     </div>
 
     <div class="card-body">
-      <a href="{{ route('rute.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Rute</a>
+      <a href="{{ route('sopir.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Sopir</a>
 
       <table class="table table-bordered" id="ruteTable">
         <thead>
           <tr>
-            <th class="text-center">Asal</th>
-            <th class="text-center">Tujuan</th>
-            <th class="text-center">Metode</th>
-            <th class="text-center">Harga</th>
-            <th class="text-center">Estimasi</th>
+            <th class="text-center">No</th>
+            <th class="text-center">Nama</th>
+            <th class="text-center">No HP</th>
+            <th class="text-center">Alamat</th>
+            <th class="text-center">No Sim</th>
+            <th class="text-center">Status</th>
             <th class="text-center">Aksi</th>
           </tr>
         </thead>
         <tbody>
-          @foreach ($rute as $item)
+          @foreach ($sopir as $index => $item)
             <tr>
-              <td class="text-center">{{ $item['asal'] }}</td>
-              <td class="text-center">{{ $item['tujuan'] }}</td>
-              <td class="text-center">{{ $item['metode'] }}</td>
-              <td class="text-center">{{ $item['harga'] }}</td>
-              <td class="text-center">{{ $item['estimasi_waktu'] }}</td>
-              <td class="text-center">
-                <a href="{{ route('rute.edit', $item['id']) }}" class="fas fa-pen"></a>
-              </td>
+                <td class="text-center">{{ $index + 1 }}</td>
+                <td class="text-center">{{ $item['nama'] }}</td>
+                <td class="text-center">{{ $item['nohp'] }}</td>
+                <td class="text-center">{{ $item['alamat'] }}</td>
+                <td class="text-center">{{ $item['nosim'] }}</td>
+                <td class="text-center">
+                    <span class="badge {{ $item['status'] == 'Aktif' ? 'bg-success' : 'bg-danger' }}">
+                        {{ $item['status'] }}
+                    </span>
+                </td>
+                <td class="text-center">
+                    <a href="{{ route('sopir.edit', $item['id']) }}" class="fas fa-pen"></a>
+                </td>
             </tr>
           @endforeach
         </tbody>
@@ -80,18 +86,18 @@
         let filter = this.value.toUpperCase();
         let rows = document.querySelectorAll('#ruteTable tbody tr');
         rows.forEach(row => {
-            let asal = row.cells[0].textContent.toUpperCase();
-            let tujuan = row.cells[1].textContent.toUpperCase();
-            let metode = row.cells[2].textContent.toUpperCase();
-            let harga = row.cells[3].textContent.toUpperCase();
-            let estimasi_waktu = row.cells[4].textContent.toUpperCase();
+            let nama = row.cells[0].textContent.toUpperCase();
+            let alamat = row.cells[1].textContent.toUpperCase();
+            let nohp = row.cells[2].textContent.toUpperCase();
+            let nosim = row.cells[3].textContent.toUpperCase();
+            let status = row.cells[4].textContent.toUpperCase();
 
             if (
-            asal.includes(filter) ||
-            tujuan.includes(filter) ||
-            metode.includes(filter) ||
-            harga.includes(filter) ||
-            estimasi_waktu.includes(filter)
+            nama.includes(filter) ||
+            status.includes(filter) ||
+            alamat.includes(filter) ||
+            nohp.includes(filter) ||
+            nosim.includes(filter)
             ) {
             row.style.display = "";
             } else {

@@ -1,20 +1,20 @@
 @extends('layout.main')
 
-@section('title','Tambah Rute')
+@section('title','Edit Rute')
 
 @section('content')
-<br>
 <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card p-4 shadow" style="max-width: 600px; width: 100%;">
         <div class="card-header mb-3">
-            <h5 class="card-title mb-0">Form Tambah Rute</h5>
+            <h5 class="card-title mb-0">Form Edit Rute</h5>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('rute.store') }}" class="forms-sample" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('rute.update', $rute['id']) }}" class="forms-sample" enctype="multipart/form-data">
+            @method('PUT')
             @csrf
             <div class="form-group">
                 <label for="asal">Asal Perjalanan</label>
-                <input type="text" class="form-control" id="asal" name="asal" placeholder="Masukan Asal Perjalanan">
+                <input type="text" class="form-control" id="asal" name="asal" value="{{old('asal') ? old('asal'): $rute['asal'] }}" placeholder="Masukan Asal Perjalanan">
                 @error('asal')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -22,7 +22,7 @@
 
             <div class="form-group">
                 <label for="tujuan">Tujuan Perjalanan</label>
-                <input type="text" class="form-control" id="tujuan" name="tujuan" placeholder="Masukan Tujuan Perjalanan">
+                <input type="text" class="form-control" id="tujuan" name="tujuan" value="{{old('tujuan') ? old('tujuan'): $rute['tujuan'] }}" placeholder="Masukan Tujuan Perjalanan">
                 @error('tujuan')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -31,10 +31,10 @@
             <div class="form-group">
                 <label for="metode">Metode Perjalanan</label>
                 <select name="metode" id="metode" class="form-control">
-                <option value="Pilih Metode Perjalanan" readonly>Pilih Metode Perjalanan</option>
-                <option value="SHUTTLE">SHUTTLE</option>
-                <option value="REGULAR">REGULAR</option>
-                <option value="SEMI-SHUTTLE">SEMI-SHUTTLE</option>
+                  <option value="Pilih Metode Perjalanan" disabled {{ (old('metode', $rute['metode']) == 'Pilih Metode Perjalanan') ? 'selected' : '' }}>Pilih Metode Perjalanan</option>
+                  <option value="SHUTTLE" {{ (old('metode', $rute['metode']) == 'SHUTTLE') ? 'selected' : '' }}>SHUTTLE</option>
+                  <option value="REGULAR" {{ (old('metode', $rute['metode']) == 'REGULAR') ? 'selected' : '' }}>REGULAR</option>
+                  <option value="SEMI-SHUTTLE" {{ (old('metode', $rute['metode']) == 'SEMI-SHUTTLE') ? 'selected' : '' }}>SEMI-SHUTTLE</option>
                 </select>
                 @error('metode')
                 <span class="text-danger">{{$message}}</span>
@@ -43,7 +43,7 @@
 
             <div class="form-group">
                 <label for="harga">Harga Perjalanan</label>
-                <input type="number" class="form-control" id="harga" name="harga" placeholder="Masukan Harga Perjalanan">
+                <input type="number" class="form-control" id="harga" name="harga" value="{{old('harga') ? old('harga'): $rute['harga'] }}" placeholder="Masukan Harga Perjalanan">
                 @error('harga')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -51,7 +51,7 @@
 
             <div class="form-group">
                 <label for="estimasi_waktu">Estimasi Perjalanan</label>
-                <input type="text" class="form-control" id="estimasi_waktu" name="estimasi_waktu" placeholder="Masukan estimasi Perjalanan">
+                <input type="text" class="form-control" id="estimasi_waktu" name="estimasi_waktu" value="{{old('estimasi_waktu') ? old('estimasi_waktu'): $rute['estimasi_waktu'] }}" placeholder="Masukan estimasi Perjalanan">
                 @error('estimasi_waktu')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
