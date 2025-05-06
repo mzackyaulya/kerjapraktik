@@ -1,65 +1,63 @@
 @extends('layout.main')
 
-@section('title','Edit Rute')
+@section('title','Edit Sopir')
 
 @section('content')
 <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card p-4 shadow" style="max-width: 600px; width: 100%;">
         <div class="card-header mb-3">
-            <h5 class="card-title mb-0">Form Edit Rute</h5>
+            <h5 class="card-title mb-0">Form Edit Sopir</h5>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('rute.update', $rute['id']) }}" class="forms-sample" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('sopir.update', $sopir['id']) }}" class="forms-sample" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label for="asal">Asal Perjalanan</label>
-                <input type="text" class="form-control" id="asal" name="asal" value="{{old('asal') ? old('asal'): $rute['asal'] }}" placeholder="Masukan Asal Perjalanan">
-                @error('asal')
-                <span class="text-danger">{{$message}}</span>
+                <label for="nama">Nama</label>
+                <input type="text" class="form-control" id="nama" name="nama" value="{{old('nama') ? old('nama'): $sopir['nama'] }}">
+                @error('nama')
+                    <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
 
             <div class="form-group">
-                <label for="tujuan">Tujuan Perjalanan</label>
-                <input type="text" class="form-control" id="tujuan" name="tujuan" value="{{old('tujuan') ? old('tujuan'): $rute['tujuan'] }}" placeholder="Masukan Tujuan Perjalanan">
-                @error('tujuan')
-                <span class="text-danger">{{$message}}</span>
+                <label for="alamat">Tujuan Perjalanan</label>
+                <input type="text" class="form-control" id="alamat" name="alamat" value="{{old('alamat') ? old('alamat'): $sopir['alamat'] }}">
+                @error('alamat')
+                    <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
 
             <div class="form-group">
-                <label for="metode">Metode Perjalanan</label>
-                <select name="metode" id="metode" class="form-control">
-                  <option value="Pilih Metode Perjalanan" disabled {{ (old('metode', $rute['metode']) == 'Pilih Metode Perjalanan') ? 'selected' : '' }}>Pilih Metode Perjalanan</option>
-                  <option value="SHUTTLE" {{ (old('metode', $rute['metode']) == 'SHUTTLE') ? 'selected' : '' }}>SHUTTLE</option>
-                  <option value="REGULAR" {{ (old('metode', $rute['metode']) == 'REGULAR') ? 'selected' : '' }}>REGULAR</option>
-                  <option value="SEMI-SHUTTLE" {{ (old('metode', $rute['metode']) == 'SEMI-SHUTTLE') ? 'selected' : '' }}>SEMI-SHUTTLE</option>
+                <label for="nohp">No HP</label>
+                <input type="number" class="form-control" id="nohp" name="nohp" value="{{old('nohp') ? old('nohp'): $sopir['nohp'] }}">
+                @error('nohp')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="nosim">No Sim</label>
+                <input type="text" class="form-control" id="nosim" name="nosim" value="{{old('nosim') ? old('nosim'): $sopir['nosim'] }}">
+                @error('nosim')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select class="form-control" id="status" name="status">
+                    <option value="Aktif" {{ old('status', $sopir['status']) == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                    <option value="Nonaktif" {{ old('status', $sopir['status']) == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
                 </select>
-                @error('metode')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="harga">Harga Perjalanan</label>
-                <input type="number" class="form-control" id="harga" name="harga" value="{{old('harga') ? old('harga'): $rute['harga'] }}" placeholder="Masukan Harga Perjalanan">
-                @error('harga')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="estimasi_waktu">Estimasi Perjalanan</label>
-                <input type="text" class="form-control" id="estimasi_waktu" name="estimasi_waktu" value="{{old('estimasi_waktu') ? old('estimasi_waktu'): $rute['estimasi_waktu'] }}" placeholder="Masukan estimasi Perjalanan">
-                @error('estimasi_waktu')
-                <span class="text-danger">{{$message}}</span>
+                @error('status')
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
 
             <div class="form-group text-right mt-3">
                 <button type="submit" class="btn btn-success">Simpan</button>
-                <a href="{{ url('rute') }}" class="btn btn-secondary">Batal</a>
+                <a href="{{ url('sopir') }}" class="btn btn-secondary">Batal</a>
             </div>
             </form>
         </div>

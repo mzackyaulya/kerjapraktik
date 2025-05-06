@@ -7,7 +7,10 @@
 <div class="card m-4 p-3">
     <div class="card-header mb-3 d-flex justify-content-between align-items-center">
         <h5 class="card-title mb-0">Daftar Sopir</h5>
-        <input type="text" id="searchInput" class="form-control form-control-sm" style="width: 200px;" placeholder="Pencarian">
+        <div style="position: relative; width: 230px;">
+            <input type="text" id="searchInput" class="form-control" placeholder="Pencarian" style="height: 40px; padding-left: 35px;">
+            <i class="fas fa-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #aaa;"></i>
+        </div>
     </div>
 
     <div class="card-body">
