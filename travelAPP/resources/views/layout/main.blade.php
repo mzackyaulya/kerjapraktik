@@ -8,7 +8,7 @@
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
     />
-    <link rel="icon" href="{{url('assets/img/kaiadmin/favicon.ico')}}" type="image/x-icon"/>
+    <link rel="icon" href="{{url('assets/img/kaiadmin/Rama.png')}}" type="image/x-icon"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-d..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -121,7 +121,7 @@
             <div class="logo-header" data-background-color="dark">
               <a href="index.html" class="logo">
                 <img
-                  src="assets/img/kaiadmin/logo_light.svg"
+                  src={{ url("assets/img/kaiadmin/Rama.png") }}
                   alt="navbar brand"
                   class="navbar-brand"
                   height="20"

@@ -37,4 +37,9 @@ class jadwal extends Model
     {
         return $this->belongsTo(sopir::class,'sopir_id','id');
     }
+    public function pesan()
+    {
+        return $this->hasMany(pesan::class);
+    }
+
 }

@@ -1,63 +1,89 @@
 @extends('layout.main')
 
-@section('title','Edit Kendaraan')
+@section('title','Edit Jadwal')
 
 @section('content')
 <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card p-4 shadow" style="max-width: 600px; width: 100%;">
         <div class="card-header mb-3">
-            <h5 class="card-title mb-0">Form Edit Kendaraan</h5>
+            <h5 class="card-title mb-0">Form Edit Jadwal</h5>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('kendaraan.update', $kendaraan['id']) }}" class="forms-sample" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('jadwal.update', $jadwal['id']) }}" class="forms-sample" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label for="noplat">No Plat</label>
-                <input type="text" class="form-control" id="noplat" name="noplat" value="{{old('noplat') ? old('noplat'): $kendaraan['noplat'] }}">
-                @error('noplat')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="merk_mobil">Merk Kendaraan</label>
-                <input type="text" class="form-control" id="merk_mobil" name="merk_mobil" value="{{old('merk_mobil') ? old('merk_mobil'): $kendaraan['merk_mobil'] }}">
-                @error('merk_mobil')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="warna">Warna</label>
-                <input type="text" class="form-control" id="warna" name="warna" value="{{old('warna') ? old('warna'): $kendaraan['warna'] }}">
-                @error('warna')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="kapasitas">Kapasitas</label>
-                <input type="text" class="form-control" id="kapasitas" name="kapasitas" value="{{old('kapasitas') ? old('kapasitas'): $kendaraan['kapasitas'] }}">
-                @error('kapasitas')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select class="form-control" id="status" name="status">
-                    <option value="Ready" {{ old('status', $kendaraan['status']) == 'Ready' ? 'selected' : '' }}>Ready</option>
-                    <option value="Perbaikan" {{ old('status', $kendaraan['status']) == 'Perbaikan' ? 'selected' : '' }}>Perbaikan</option>
+                <label for="rute_id">Rute</label>
+                <select class="form-control" name="rute_id" id="rute_id">
+                    <option value="">Pilih Rute</option>
+                    @foreach ($rute as $items)
+                        <option value="{{$items['id']}}" {{ (old('rute_id', $jadwal['rute_id']) == $items['id']) ? 'selected' : '' }} >
+                            {{$items['asal']}} - {{ $items['tujuan'] }} - {{ $items['metode'] }} - {{ $items['harga'] }}
+                        </option>
+                    @endforeach
                 </select>
-                @error('status')
-                    <span class="text-danger">{{ $message }}</span>
+                @error('rute_id')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="kendaraan_id">Kendaraan</label>
+                <select class="form-control" name="kendaraan_id" id="kendaraan_id">
+                    <option value="">Pilih Kendaraan</option>
+                    @foreach ($kendaraan as $items)
+                        <option value="{{$items['id']}}" {{ (old('kendaraan_id', $jadwal['kendaraan_id']) == $items['id']) ? 'selected' : '' }}>
+                            {{$items['merk_mobil']}} - {{$items['warna']}}
+                        </option>
+                    @endforeach
+                </select>
+                @error('kendaraan_id')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="sopir_id">Sopir</label>
+                <select class="form-control" name="sopir_id" id="sopir_id">
+                    <option value="">Pilih Sopir</option>
+                    @foreach ($sopir as $items)
+                        <option value="{{$items['id']}}" {{ (old('sopir_id', $jadwal['sopir_id']) == $items['id']) ? 'selected' : '' }}>
+                            {{$items['nama']}} - {{$items['alamat']}} - {{$items['status']}}
+                        </option>
+                    @endforeach
+                </select>
+                @error('sopir_id')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="tanggal">Tanggal Jadwal</label>
+                <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ old('tanggal') ? old('tanggal') : $jadwal['tanggal']}}" placeholder="Masukan tanggal Jadwal">
+                @error('tanggal')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="jam">Jam Jadwal</label>
+                <input type="time" class="form-control" id="jam" name="jam" value="{{ old('jam', $jadwal['jam']) }}" placeholder="Masukan jam Jadwal">
+                @error('jam')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="gambar">URL Gambar</label>
+                <input type="text" class="form-control" id="gambar" name="gambar" value="{{ old('gambar') ? old('gambar') : $jadwal['gambar']}}" placeholder="Masukan Url gambar Jadwal">
+                @error('gambar')
+                    <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
 
             <div class="form-group text-right mt-3">
                 <button type="submit" class="btn btn-success">Simpan</button>
-                <a href="{{ url('kendaraan') }}" class="btn btn-secondary">Batal</a>
+                <a href="{{ url('jadwal') }}" class="btn btn-secondary">Batal</a>
             </div>
             </form>
         </div>

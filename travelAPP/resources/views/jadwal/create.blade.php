@@ -17,7 +17,7 @@
                     <select class="form-control" name="rute_id" id="rute_id">
                         <option value="">Pilih Rute</option>
                         @foreach ($rute as $items)
-                            <option value="{{$items['id']}}">
+                            <option value="{{$items['id']}}" {{ old('rute_id') == $items['id'] ? 'selected' : '' }}>
                                 {{$items['asal']}} - {{ $items['tujuan'] }} - {{ $items['metode'] }} - {{ $items['harga'] }}
                             </option>
                         @endforeach
@@ -32,7 +32,7 @@
                     <select class="form-control" name="kendaraan_id" id="kendaraan_id">
                         <option value="">Pilih Kendaraan</option>
                         @foreach ($kendaraan as $items)
-                            <option value="{{$items['id']}}">
+                            <option value="{{$items['id']}}" {{ old('kendaraan_id') == $items['id'] ? 'selected' : '' }}>
                                 {{$items['merk_mobil']}} - {{$items['warna']}}
                             </option>
                         @endforeach
@@ -47,7 +47,7 @@
                     <select class="form-control" name="sopir_id" id="sopir_id">
                         <option value="">Pilih Sopir</option>
                         @foreach ($sopir as $items)
-                            <option value="{{$items['id']}}">
+                            <option value="{{$items['id']}}" {{ old('sopir_id') == $items['id'] ? 'selected' : '' }}>
                                 {{$items['nama']}} - {{$items['alamat']}} - {{$items['status']}}
                             </option>
                         @endforeach
