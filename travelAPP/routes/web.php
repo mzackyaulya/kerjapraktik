@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\RuteController;
 use App\Http\Controllers\SopirController;
@@ -12,3 +13,4 @@ Route::get('/', function () {
 Route::resource('rute', RuteController::class);
 Route::resource('sopir', SopirController::class);
 Route::resource('kendaraan', KendaraanController::class);
+Route::resource('jadwal', JadwalController::class);

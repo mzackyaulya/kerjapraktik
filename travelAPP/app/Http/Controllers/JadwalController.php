@@ -3,70 +3,53 @@
 namespace App\Http\Controllers;
 
 use App\Models\jadwal;
+use App\Models\kendaraan;
+use App\Models\rute;
+use App\Models\sopir;
 use Illuminate\Http\Request;
 
 class JadwalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $jadwal = jadwal::all();
+        return view('jadwal.index')->with('jadwal',$jadwal);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $rute = rute::all();
+        $sopir = sopir::all();
+        $kendaraan = kendaraan::all();
+
+        return view('jadwal.create')->with('rute', $rute)->with('sopir', $sopir)->with('kendaraan', $kendaraan);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $val = $request-> validate([
+            'gambar' => 'required|url',
+            'rute_id' => 'required|exists:rutes,id',
+            'kendaraan_id' => 'required|exists:kendaraans,id',
+            'sopir_id' => 'required|exists:sopirs,id',
+            'tanggal' => 'required|date',
+            'jam' => 'required|date_format:H:i'
+        ]);
+
+        jadwal::create($val);
+        return redirect()->route('jadwal.index')->with('success', 'Data Jadwal berhasil di Tambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\jadwal  $jadwal
-     * @return \Illuminate\Http\Response
-     */
     public function show(jadwal $jadwal)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\jadwal  $jadwal
-     * @return \Illuminate\Http\Response
-     */
     public function edit(jadwal $jadwal)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\jadwal  $jadwal
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, jadwal $jadwal)
     {
         //

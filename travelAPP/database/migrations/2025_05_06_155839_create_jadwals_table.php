@@ -18,9 +18,9 @@ return new class extends Migration
             $table->foreignUuid('rute_id')->constrained('rutes')->onDelete('cascade');
             $table->foreignUuid('kendaraan_id')->constrained('kendaraans')->onDelete('cascade');
             $table->foreignUuid('sopir_id')->constrained('sopirs')->onDelete('cascade');
-            $table->string('tanggal');
-            $table->string('jam');
-            $table->string('gambar')->nullable();
+            $table->date('tanggal');
+            $table->time('jam');
+            $table->string('gambar');
             $table->timestamps();
         });
     }
