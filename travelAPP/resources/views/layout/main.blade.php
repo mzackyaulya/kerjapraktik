@@ -73,7 +73,7 @@
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
               <li class="nav-item active">
-                <a href="#">
+                <a href="{{ url('dashboard') }}">
                   <i class="fa fa-home"></i>
                   <p>BERANDA</p>
                 </a>
