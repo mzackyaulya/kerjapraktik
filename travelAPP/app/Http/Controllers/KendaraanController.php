@@ -21,6 +21,9 @@ class KendaraanController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->user()->cannot('create', kendaraan::class)){
+            abort(403);
+        }
         $val = $request->validate([
             'noplat'        => 'required|string|max:45',
             'merk_mobil'    => 'required|string|max:20',
@@ -38,13 +41,17 @@ class KendaraanController extends Controller
         //
     }
 
-    public function edit(kendaraan $kendaraan)
+    public function edit(kendaraan $kendaraan,$id)
     {
+        $kendaraan = kendaraan::findOrFail($id);
         return view('kendaraan.edit')->with('kendaraan', $kendaraan);
     }
 
-    public function update(Request $request, kendaraan $kendaraan)
+    public function update(Request $request, kendaraan $kendaraan,$id)
     {
+        $this->authorize('update', $kendaraan);
+        $kendaraan = kendaraan::findOrFail($id);
+        
         $val = $request->validate([
             'noplat'        => 'required|string|max:45',
             'merk_mobil'    => 'required|string|max:20',

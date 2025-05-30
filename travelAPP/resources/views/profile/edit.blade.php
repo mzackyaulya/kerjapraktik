@@ -1,38 +1,52 @@
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Profil</title>
-  <link rel="shortcut icon" type="image/png" href="../assets/img/kaiadmin/Rama.png" />
-  <link rel="stylesheet" href="{{ url('assets/css/styles.min.css') }}" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+@extends('layout.main')
 
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@section('title', 'Profil')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
+@section('content')
+<div class="container py-5 d-flex justify-content-center">
+    <div style="width: 450px; max-width: 90vw;">
+        <h2 class="mb-4 text-center text-primary fw-bold">Pengaturan Profil</h2>
+
+        <!-- Update Profile Information -->
+        <div class="card shadow-sm rounded mb-4">
+            <div class="card-header bg-primary text-white fw-semibold">
+                Update Informasi Profil
             </div>
-
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
+            <div class="card-body">
+                @include('profile.partials.update-profile-information-form')
             </div>
+        </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
+        <!-- Update Password -->
+        <div class="card shadow-sm rounded mb-4">
+            <div class="card-header bg-primary text-white fw-semibold">
+                Update Kata Sandi
+            </div>
+            <div class="card-body">
+                @include('profile.partials.update-password-form')
+            </div>
+        </div>
+
+        <!-- Delete User -->
+        <div class="card shadow-sm rounded border-danger">
+            <div class="card-header bg-danger text-white fw-semibold">
+                Hapus Akun
+            </div>
+            <div class="card-body">
+                @include('profile.partials.delete-user-form')
             </div>
         </div>
     </div>
-</x-app-layout>
+</div>
+
+<style>
+    /* Spasi antar elemen form */
+    .card-body form > * {
+        margin-bottom: 1rem;
+    }
+    /* Tombol hapus akun full lebar */
+    .card.border-danger .btn-danger {
+        width: 100%;
+    }
+</style>
+@endsection

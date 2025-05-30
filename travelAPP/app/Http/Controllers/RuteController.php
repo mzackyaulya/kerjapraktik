@@ -21,6 +21,9 @@ class RuteController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->user()->cannot('create', rute::class)){
+            abort(403);
+        }
         $val = $request->validate([
             'asal'          => 'required|max:45',
             'tujuan'        => 'required|max:45',
@@ -38,13 +41,17 @@ class RuteController extends Controller
         //
     }
 
-    public function edit(rute $rute)
+    public function edit(rute $rute, $id)
     {
+        $rute = Rute::findOrFail($id);
         return view('rute.edit')->with('rute', $rute);
     }
 
-    public function update(Request $request, rute $rute)
+    public function update(Request $request, rute $rute,$id)
     {
+        $this->authorize('update', $rute);
+        $rute = rute::findOrFail($id);
+
         $val = $request->validate([
             'asal'          => 'required|max:45',
             'tujuan'        => 'required|max:45',

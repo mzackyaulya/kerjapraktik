@@ -10,6 +10,7 @@ class rute extends Model
 {
     use HasFactory;
     public $incrementing = false;
+    protected $table = 'rutes';
     protected $keyType = 'string';
     protected $fillable =
     [

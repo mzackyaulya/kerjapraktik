@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('pesans', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('jadwal_id')->constrained('jadwals')->onDelete('cascade');
+            $table->foreignUuid('jadwal_id')->constrained('jadwals')->onDelete('cascade');
             $table->string('nama_pemesan');
             $table->string('nohp');
-            $table->text('alamat');
+            $table->string('alamat');
             $table->string('seet');
             $table->integer('jumlah_orang');
             $table->integer('harga_total');
-            $table->string('status')->default('pending');
+            $table->string('status')->default('Pending');
             $table->timestamps();
         });
     }

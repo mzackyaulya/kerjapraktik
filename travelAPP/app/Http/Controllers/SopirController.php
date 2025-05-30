@@ -22,6 +22,9 @@ class SopirController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->user()->cannot('create', sopir::class)){
+            abort(403);
+        }
         $val = $request -> validate([
             'nama'      => 'required|string|max:45',
             'nohp'      => 'required|string|max:20',
@@ -39,13 +42,17 @@ class SopirController extends Controller
         //
     }
 
-    public function edit(sopir $sopir)
+    public function edit(sopir $sopir,$id)
     {
+        $sopir = sopir::findOrFail($id);
         return view('sopir.edit')->with('sopir', $sopir);
     }
 
-    public function update(Request $request, sopir $sopir)
+    public function update(Request $request, sopir $sopir,$id)
     {
+        $this->authorize('update', $sopir);
+        $sopir = sopir::findOrFail($id);
+
         $val = $request -> validate([
             'nama'      => 'required|string|max:45',
             'nohp'      => 'required|string|max:20',

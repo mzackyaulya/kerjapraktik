@@ -14,34 +14,40 @@
     </div>
 
     <div class="card-body">
-      <a href="{{ route('rute.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Rute</a>
+        @if(auth()->user()->role == 'A')
+            <a href="{{ route('rute.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Rute</a>
+        @endif
 
-      <table class="table table-bordered" id="ruteTable">
-        <thead>
-          <tr>
-            <th class="text-center">Asal</th>
-            <th class="text-center">Tujuan</th>
-            <th class="text-center">Metode</th>
-            <th class="text-center">Harga</th>
-            <th class="text-center">Estimasi</th>
-            <th class="text-center">Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($rute as $item)
-            <tr>
-              <td class="text-center">{{ $item['asal'] }}</td>
-              <td class="text-center">{{ $item['tujuan'] }}</td>
-              <td class="text-center">{{ $item['metode'] }}</td>
-              <td class="text-center">{{ $item['harga'] }}</td>
-              <td class="text-center">{{ $item['estimasi_waktu'] }}</td>
-              <td class="text-center">
-                <a href="{{ route('rute.edit', $item['id']) }}" class="fas fa-pen"></a>
-              </td>
-            </tr>
-          @endforeach
-        </tbody>
-      </table>
+        <table class="table table-bordered" id="ruteTable">
+            <thead>
+                <tr>
+                    <th class="text-center">Asal</th>
+                    <th class="text-center">Tujuan</th>
+                    <th class="text-center">Metode</th>
+                    <th class="text-center">Harga</th>
+                    <th class="text-center">Estimasi</th>
+                    @if (auth()->user()->role == 'A')
+                        <th class="text-center">Aksi</th>
+                    @endif
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($rute as $item)
+                    <tr>
+                        <td class="text-center">{{ $item['asal'] }}</td>
+                        <td class="text-center">{{ $item['tujuan'] }}</td>
+                        <td class="text-center">{{ $item['metode'] }}</td>
+                        <td class="text-center">Rp. {{ $item['harga'] }}</td>
+                        <td class="text-center">{{ $item['estimasi_waktu'] }}</td>
+                        @if (auth()->user()->role == 'A')
+                            <td class="text-center">
+                                <a href="{{ route('rute.edit', $item['id']) }}" class="fas fa-pen"></a>
+                            </td>
+                        @endif
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 

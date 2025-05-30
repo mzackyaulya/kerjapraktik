@@ -43,7 +43,7 @@
                   @enderror
                 </div>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <a class="text-primary small" href="{{ url('forgot-password') }}">Forgot Password?</a>
+                  <a class="text-primary small" href="{{ url('forgot-password') }}">Lupa password ?</a>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
               </form>

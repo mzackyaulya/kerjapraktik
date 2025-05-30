@@ -3,6 +3,13 @@
 <html lang="en">
 
 <head>
+    <style>
+        .footer {
+            background-color: #2C3E50 !important;
+            background-image: none !important;
+        }
+    </style>
+
     <meta charset="utf-8">
     <title>Rama Tranz</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -55,7 +62,7 @@
         <div id="blog-carousel" class="carousel slide overlay-bottom" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="w-100" src="assets/img/kaiadmin/Rama1.jpg" alt="Image" height="650px">
+                    <img class="w-100" src="assets/img/kaiadmin/Rama1.jpg" alt="Image" height="700px">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <h2 class="text-primary font-weight-medium m-0">Travel dan Antar Paket</h2>
                         <h1 class="display-1 text-white m-0">RAMA TRANZ</h1>
@@ -63,7 +70,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img class="w-100 " src="assets/img/kaiadmin/Rama2.jfif" alt="Image" height="650px">
+                    <img class="w-100 " src="assets/img/kaiadmin/Rama2.jfif" alt="Image" height="700px">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <h2 class="text-primary font-weight-medium m-0">Travel dan Antar Paket</h2>
                         <h1 class="display-1 text-white m-0">RAMA TRANZ</h1>
@@ -81,7 +88,7 @@
     </div>
     <!-- Carousel End -->
     <!-- Footer Start -->
-    <div class="container-fluid footer text-white mt-5 pt-5 px-0 position-relative overlay-top">
+    <div class="container-fluid footer bg-dark text-white mt-5 pt-5 px-0 position-relative overlay-top">
         <div class="row mx-0 pt-5 px-sm-3 px-lg-5 mt-4">
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Lokasi</h4>
@@ -95,7 +102,7 @@
                 <div class="d-flex justify-content-start">
                     <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
                     <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="https://www.youtube.com/channel/UCY7MCn80wnrJTn219ACedYQ"><i class="fab fa-youtube"></i></a>
-                    <a class="btn btn-lg btn-outline-light btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-lg btn-outline-light btn-lg-square" href="https://www.instagram.com/ramatranstravel?igsh=ZHNvYm1vejhsb3I2"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-5">

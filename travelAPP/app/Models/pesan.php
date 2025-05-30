@@ -10,6 +10,7 @@ class pesan extends Model
 {
     use HasFactory;
     public $incrementing = false;
+    protected $table = 'pesans';
     protected $keyType = 'string';
     protected $fillable =
     [

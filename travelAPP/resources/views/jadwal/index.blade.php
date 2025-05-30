@@ -25,7 +25,9 @@
 
     <body>
         <div class="container">
-            <a href="{{ route('jadwal.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Jadwal</a>
+            @if(auth()->user()->role == 'A')
+                <a href="{{ route('jadwal.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Jadwal</a>
+            @endif
             <hr>
             <div class="row" id="ruteTable">
                 @foreach ($jadwal as $item)
@@ -56,8 +58,11 @@
                                     <span>: {{ $item['jam'] }}</span>
                                 </div>
 
-                                <div class="text-center mt-3">
-                                    <a href="{{ route('jadwal.edit', $item['id']) }}" class="fas fa-pen"></a>
+                                <div class="d-flex justify-content-between">
+                                    @if(auth()->user()->role == 'A')
+                                        <a href="{{ route('jadwal.edit', $item['id']) }}" class="fas fa-pen btn btn-info"> Edit</a>
+                                    @endif
+                                    <a href="{{ route('pesan.create', $item['id']) }}" class="btn btn-success fas fa-file-text"> Pesan</a>
                                 </div>
                             </div>
                         </div>

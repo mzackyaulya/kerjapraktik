@@ -16,7 +16,7 @@
                 <label for="asal">Asal Perjalanan</label>
                 <input type="text" class="form-control" id="asal" name="asal" value="{{ old('asal')}}" placeholder="Masukan Asal Perjalanan">
                 @error('asal')
-                <span class="text-danger">{{$message}}</span>
+                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
 
@@ -24,20 +24,20 @@
                 <label for="tujuan">Tujuan Perjalanan</label>
                 <input type="text" class="form-control" id="tujuan" name="tujuan" value="{{ old('tujuan')}}" placeholder="Masukan Tujuan Perjalanan">
                 @error('tujuan')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
 
             <div class="form-group">
                 <label for="metode">Metode Perjalanan</label>
                 <select name="metode" id="metode" class="form-control">
-                <option value="Pilih Metode Perjalanan" readonly>Pilih Metode Perjalanan</option>
-                <option value="SHUTTLE">SHUTTLE</option>
-                <option value="REGULAR">REGULAR</option>
-                <option value="SEMI-SHUTTLE">SEMI-SHUTTLE</option>
+                    <option value="" disabled {{ old('metode') == '' ? 'selected' : '' }}>Pilih Metode Perjalanan</option>
+                    <option value="SHUTTLE" {{ old('metode') == 'SHUTTLE' ? 'selected' : '' }}>SHUTTLE</option>
+                    <option value="REGULAR" {{ old('metode') == 'REGULAR' ? 'selected' : '' }}>REGULAR</option>
+                    <option value="SEMI-SHUTTLE" {{ old('metode') == 'SEMI-SHUTTLE' ? 'selected' : '' }}>SEMI-SHUTTLE</option>
                 </select>
                 @error('metode')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -45,7 +45,7 @@
                 <label for="harga">Harga Perjalanan</label>
                 <input type="number" class="form-control" id="harga" name="harga" value="{{ old('harga')}}" placeholder="Masukan Harga Perjalanan">
                 @error('harga')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
 
@@ -53,7 +53,7 @@
                 <label for="estimasi_waktu">Estimasi Perjalanan</label>
                 <input type="text" class="form-control" id="estimasi_waktu" value="{{ old('estimasi_waktu')}}" name="estimasi_waktu" placeholder="Masukan estimasi Perjalanan">
                 @error('estimasi_waktu')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
 

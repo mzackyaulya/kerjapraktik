@@ -10,6 +10,7 @@ class sopir extends Model
 {
     use HasFactory;
     public $incrementing = false;
+    protected $table = 'sopirs';
     protected $keyType = 'string';
     protected $fillable =
     [

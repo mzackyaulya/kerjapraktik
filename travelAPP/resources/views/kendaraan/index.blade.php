@@ -1,6 +1,6 @@
 @extends('layout.main')
 
-@section('title','Sopir')
+@section('title','Kendaraan')
 
 @section('content')
 <br>
@@ -14,40 +14,49 @@
     </div>
 
     <div class="card-body">
-      <a href="{{ route('kendaraan.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Kendaraan</a>
-
-      <table class="table table-bordered" id="ruteTable">
-        <thead>
-          <tr>
-            <th class="text-center">No</th>
-            <th class="text-center">No Plat</th>
-            <th class="text-center">Merk Mobil</th>
-            <th class="text-center">warna</th>
-            <th class="text-center">Kapasitas</th>
-            <th class="text-center">Status</th>
-            <th class="text-center">Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($kendaraan as $index => $item)
+        @if(auth()->user()->role == 'A')
+            <a href="{{ route('kendaraan.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Kendaraan</a>
+        @endif
+        <table class="table table-bordered" id="ruteTable">
+            <thead>
             <tr>
-                <td class="text-center">{{ $index + 1 }}</td>
-                <td class="text-center">{{ $item['noplat'] }}</td>
-                <td class="text-center">{{ $item['merk_mobil'] }}</td>
-                <td class="text-center">{{ $item['warna'] }}</td>
-                <td class="text-center">{{ $item['kapasitas'] }}</td>
-                <td class="text-center">
-                    <span class="badge {{ $item['status'] == 'Ready' ? 'bg-success' : 'bg-danger' }}">
-                        {{ $item['status'] }}
-                    </span>
-                </td>
-                <td class="text-center">
-                    <a href="{{ route('kendaraan.edit', $item['id']) }}" class="fas fa-pen"></a>
-                </td>
+                <th class="text-center">No</th>
+                @if(auth()->user()->role == 'A')
+                    <th class="text-center">No Plat</th>
+                @endif
+                <th class="text-center">Merk Mobil</th>
+                <th class="text-center">warna</th>
+                <th class="text-center">Kapasitas</th>
+                <th class="text-center">Status</th>
+                @if(auth()->user()->role == 'A')
+                    <th class="text-center">Aksi</th>
+                @endif
             </tr>
-          @endforeach
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+                @foreach ($kendaraan as $index => $item)
+                    <tr>
+                        <td class="text-center">{{ $index + 1 }}</td>
+                        @if(auth()->user()->role == 'A')
+                            <td class="text-center">{{ $item['noplat'] }}</td>
+                        @endif
+                        <td class="text-center">{{ $item['merk_mobil'] }}</td>
+                        <td class="text-center">{{ $item['warna'] }}</td>
+                        <td class="text-center">{{ $item['kapasitas'] }}</td>
+                        <td class="text-center">
+                            <span class="badge {{ $item['status'] == 'Ready' ? 'bg-success' : 'bg-danger' }}">
+                                {{ $item['status'] }}
+                            </span>
+                        </td>
+                        @if(auth()->user()->role == 'A')
+                            <td class="text-center">
+                                <a href="{{ route('kendaraan.edit', $item['id']) }}" class="fas fa-pen"></a>
+                            </td>
+                        @endif
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 

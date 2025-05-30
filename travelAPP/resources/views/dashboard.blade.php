@@ -3,21 +3,31 @@
 @section('title','Beranda')
 
 @section('content')
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+<div class="py-8">
+    <div class="container mx-auto px-4">
+        <!-- Header -->
+        <h1 class="text-4xl font-bold text-gray-800 mb-3 mt-4 fas fa-home">Beranda</h1>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
+        <!-- Banner Gambar -->
+        <div class="mb-8 text-center mb-4 mt-4">
+            <img src="{{ asset('assets/img/kaiadmin/Rama1.jpg') }}" alt="Banner Travel" class="w-full rounded shadow-md" />
+        </div>
+
+        <!-- Statistik Ringkas -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white p-6 rounded shadow text-center">
+                <h3 class="text-xl font-semibold mb-2">Total Sopir</h3>
+                <p class="text-3xl text-blue-600">2</p>
+            </div>
+            <div class="bg-white p-6 rounded shadow text-center">
+                <h3 class="text-xl font-semibold mb-2">Jadwal Aktif Hari Ini</h3>
+                <p class="text-3xl text-blue-600">5</p>
+            </div>
+            <div class="bg-white p-6 rounded shadow text-center">
+                <h3 class="text-xl font-semibold mb-2">Pendapatan Bulan Ini</h3>
+                <p class="text-3xl text-blue-600">Rp 8.500.000</p>
             </div>
         </div>
     </div>
-</x-app-layout>
+</div>
 @endsection

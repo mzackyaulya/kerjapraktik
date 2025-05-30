@@ -14,40 +14,45 @@
     </div>
 
     <div class="card-body">
-      <a href="{{ route('sopir.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Sopir</a>
-
-      <table class="table table-bordered" id="ruteTable">
-        <thead>
-          <tr>
-            <th class="text-center">No</th>
-            <th class="text-center">Nama</th>
-            <th class="text-center">No HP</th>
-            <th class="text-center">Alamat</th>
-            <th class="text-center">No Sim</th>
-            <th class="text-center">Status</th>
-            <th class="text-center">Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($sopir as $index => $item)
+        @if(auth()->user()->role == 'A')
+            <a href="{{ route('sopir.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Sopir</a>
+        @endif
+        <table class="table table-bordered" id="ruteTable">
+            <thead>
             <tr>
-                <td class="text-center">{{ $index + 1 }}</td>
-                <td class="text-center">{{ $item['nama'] }}</td>
-                <td class="text-center">{{ $item['nohp'] }}</td>
-                <td class="text-center">{{ $item['alamat'] }}</td>
-                <td class="text-center">{{ $item['nosim'] }}</td>
-                <td class="text-center">
-                    <span class="badge {{ $item['status'] == 'Aktif' ? 'bg-success' : 'bg-danger' }}">
-                        {{ $item['status'] }}
-                    </span>
-                </td>
-                <td class="text-center">
-                    <a href="{{ route('sopir.edit', $item['id']) }}" class="fas fa-pen"></a>
-                </td>
+                <th class="text-center">No</th>
+                <th class="text-center">Nama</th>
+                <th class="text-center">No HP</th>
+                <th class="text-center">Alamat</th>
+                <th class="text-center">No Sim</th>
+                <th class="text-center">Status</th>
+                @if(auth()->user()->role == 'A')
+                    <th class="text-center">Aksi</th>
+                @endif
             </tr>
-          @endforeach
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+                @foreach ($sopir as $index => $item)
+                    <tr>
+                        <td class="text-center">{{ $index + 1 }}</td>
+                        <td class="text-center">{{ $item['nama'] }}</td>
+                        <td class="text-center">{{ $item['nohp'] }}</td>
+                        <td class="text-center">{{ $item['alamat'] }}</td>
+                        <td class="text-center">{{ $item['nosim'] }}</td>
+                        <td class="text-center">
+                            <span class="badge {{ $item['status'] == 'Aktif' ? 'bg-success' : 'bg-danger' }}">
+                                {{ $item['status'] }}
+                            </span>
+                        </td>
+                        @if(auth()->user()->role == 'A')
+                            <td class="text-center">
+                                <a href="{{ route('sopir.edit', $item['id']) }}" class="fas fa-pen"></a>
+                            </td>
+                        @endif
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 
