@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KendaraanController;
+use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RuteController;
@@ -40,8 +41,15 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('status', 'verification-link-sent');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+//Route Pelanggan
+Route::middleware(['auth'])->group(function () {
+    Route::get('/pelanggan', [PelangganController::class, 'index'])->name('pelanggan.index');
+    Route::get('/pelanggan/{id}/edit', [PelangganController::class, 'edit'])->name('pelanggan.edit');
+    Route::put('/pelanggan/{id}', [PelangganController::class, 'update'])->name('pelanggan.update');
+});
+
 //Route Rute
-Route::middleware(['auth', 'role:A,M'])->group(function () {
+Route::middleware(['auth', 'role:A,U'])->group(function () {
     Route::get('/rute', [RuteController::class, 'index'])->name('rute.index');
 });
 Route::middleware(['auth', 'role:A'])->group(function () {
@@ -65,7 +73,7 @@ Route::middleware(['auth', 'role:A'])->group(function () {
 });
 
 //Route kendaraan
-Route::middleware(['auth', 'role:A,M'])->group(function () {
+Route::middleware(['auth', 'role:A,U'])->group(function () {
     Route::get('/kendaraan', [KendaraanController::class, 'index'])->name('kendaraan.index');
 });
 Route::middleware(['auth', 'role:A'])->group(function () {
@@ -80,6 +88,7 @@ Route::middleware(['auth', 'role:A'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('jadwal', JadwalController::class);
 });
+
 
 Route::resource('pesan', PesanController::class);
 Route::get('/pesan/create/{jadwal_id?}', [PesanController::class, 'create'])->name('pesan.create');

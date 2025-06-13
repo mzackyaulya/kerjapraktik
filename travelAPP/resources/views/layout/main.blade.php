@@ -1,308 +1,255 @@
 
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>@yield('title')</title>
-        <meta
-        content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-        name="viewport"
-        />
-        <link rel="icon" href="{{url('assets/img/kaiadmin/Rama.png')}}" type="image/x-icon"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-d..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
 
-        <!-- CSS Files -->
-        <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}" />
-        <link rel="stylesheet" href="{{url('assets/css/plugins.min.css')}}" />
-        <link rel="stylesheet" href="{{url('assets/css/kaiadmin.min.css')}}" />
+    <title>@yield('title')</title>
 
-        <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link rel="stylesheet" href="{{url('assets/css/demo.css')}}" />
-    </head>
-  <body>
-    <div class="wrapper">
-      <!-- Sidebar -->
-      <div class="sidebar" data-background-color="dark">
-        <div class="sidebar-logo">
-          <!-- Logo Header -->
-          <div class="logo-header" data-background-color="dark">
-            <a href="#" class="logo">
-              <img
-                src="{{ url('assets/img/kaiadmin/Rama.svg') }}"
-                alt="navbar brand"
-                class="navbar-brand"
-                height="50"
-              />
-            </a>
-            <div class="nav-toggle">
-              <button class="btn btn-toggle toggle-sidebar">
-                <i class="gg-menu-right"></i>
-              </button>
-              <button class="btn btn-toggle sidenav-toggler">
-                <i class="gg-menu-left"></i>
-              </button>
-            </div>
-            <button class="topbar-toggler more">
-              <i class="gg-more-vertical-alt"></i>
-            </button>
-          </div>
-          <!-- End Logo Header -->
-        </div>
-        <div class="sidebar-wrapper scrollbar scrollbar-inner">
-          <div class="sidebar-content">
-            <ul class="nav nav-secondary">
-              <li class="nav-item active">
-                <a href="{{ url('dashboard') }}">
-                  <i class="fa fa-home"></i>
-                  <p>BERANDA</p>
-                </a>
-              </li>
-              <li class="nav-section">
-                <span class="sidebar-mini-icon">
-                  <i class="fa fa-ellipsis-h"></i>
-                </span>
-                <h4 class="text-section">Travel Fitur</h4>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url('jadwal') }}">
-                  <i class="fas fa-calendar"></i>
-                  <p>Jadwal</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url('rute') }}">
-                  <i class="fas fa-road"></i>
-                  <p>Rute</p>
-                </a>
-              </li>
-                @if(auth()->user()->role == 'A')
-                    <li class="nav-item">
-                        <a href="{{ url('sopir') }}">
-                        <i class="fas fa-user"></i>
-                        <p>Sopir</p>
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url('foto/icon.png') }}" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="{{ url('assets/vendor/fonts/boxicons.css') }}" />
+    <link rel="stylesheet" href="{{ url('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ url('assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ url('assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ url('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    <link rel="stylesheet" href="{{ url('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+    <script src="{{ url('assets/vendor/js/helpers.js') }}"></script>
+    <script src="{{ url('assets/js/config.js') }}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+</head>
+
+    <body>
+        <!-- Layout wrapper -->
+        <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <!-- Menu -->
+            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+                {{-- LOGO --}}
+                <div class="app-brand demo">
+                    <a href="#" class="app-brand-link">
+                    <img src="{{ url('foto/ramatrans.png') }}" width="200" height="50" class="mb-3">
+                    </a>
+                        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                        <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                    </a>
+                </div>
+                {{-- /LOGO --}}
+                <div class="menu-inner-shadow"></div>
+
+                <ul class="menu-inner py-1">
+                    <!-- Dashboard -->
+                    <li class="menu-item ">
+                        <a href="{{ url('dashboard') }}" class="menu-link">
+                            <i class="menu-icon bi bi-house-door"></i>
+                            <div data-i18n="Analytics" class="mt-1 fw-bold text-dark">Beranda</div>
                         </a>
                     </li>
-                @endif
-              <li class="nav-item">
-                <a href="{{ url('kendaraan') }}">
-                  <i class="fas fa-car"></i>
-                  <p>Kendaraan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url('pesan') }}">
-                  <i class="fas fa-file-text"></i>
-                  <p>Pemesanan</p>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!-- End Sidebar -->
 
-        <div class="main-panel">
-            <div class="main-header">
-                <div class="main-header-logo">
-                <!-- Logo Header -->
-                <div class="logo-header" data-background-color="dark">
-                <a href="index.html" class="logo">
-                    <img
-                    src={{ url("assets/img/kaiadmin/Rama.png") }}
-                    alt="navbar brand"
-                    class="navbar-brand"
-                    height="20"
+                    <li class="menu-header small text-uppercase">
+                        <span class="menu-header-text">Fitur RamaTranz</span>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ url('jadwal') }}" class="menu-link">
+                            <i class="menu-icon bi bi-calendar"></i>
+                            <div data-i18n="Jadwal" class=" fw-bold text-dark">Jadwal</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ url('pelanggan') }}" class="menu-link">
+                            <i class="menu-icon bi bi-person"></i>
+                            <div data-i18n="Jadwal" class="fw-bold text-dark">Pelanggan</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ url('rute') }}" class="menu-link">
+                            <i class="menu-icon bi bi-map"></i>
+                            <div data-i18n="Jadwal" class="fw-bold text-dark">Rute</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ url('sopir') }}" class="menu-link">
+                            <i class="menu-icon bi bi-person-badge"></i>
+                            <div data-i18n="Jadwal" class="fw-bold text-dark">Sopir</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ url('kendaraan') }}" class="menu-link">
+                            <i class="menu-icon bi bi-car-front"></i>
+                            <div data-i18n="Jadwal" class="fw-bold text-dark">Kendaraan</div>
+                        </a>
+                    </li>
+
+                    <!-- Pemesanan -->
+                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Fitur Pemesanan</span></li>
+                    <li class="menu-item">
+                        <a href="{{ url('pesan') }}" class="menu-link">
+                            <i class="menu-icon bi bi-ticket-perforated"></i>
+                            <div data-i18n="pesan" class="fw-bold text-dark">Pemesanan Tiket</div>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+            <!-- / Menu -->
+
+            <!-- Layout container -->
+            <div class="layout-page">
+            <!-- Navbar -->
+            <nav
+                class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                id="layout-navbar"
+            >
+                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                    <i class="bx bx-menu bx-sm"></i>
+                </a>
+                </div>
+
+                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                <!-- Search -->
+                <div class="navbar-nav align-items-center">
+                    <div class="nav-item d-flex align-items-center">
+                    <i class="bx bx-search fs-4 lh-0"></i>
+                    <input
+                        type="text"
+                        class="form-control border-0 shadow-none"
+                        placeholder="Search..."
+                        aria-label="Search..."
                     />
-                </a>
-                <div class="nav-toggle">
-                    <button class="btn btn-toggle toggle-sidebar">
-                    <i class="gg-menu-right"></i>
-                    </button>
-                    <button class="btn btn-toggle sidenav-toggler">
-                    <i class="gg-menu-left"></i>
-                    </button>
+                    </div>
                 </div>
-                <button class="topbar-toggler more">
-                    <i class="gg-more-vertical-alt"></i>
-                </button>
-                </div>
-                <!-- End Logo Header -->
-        </div>
-        <!-- Navbar Header -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm custom-navbar">
-            <div class="container-fluid">
-                <!-- Kiri: Brand Text -->
-                <a class="navbar-brand fw-bold text-primary ms-4" href="#">
-                    Selamat Datang di RamaTranz
-                </a>
+                <!-- /Search -->
 
-                <!-- Kanan: User Dropdown -->
-                <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item dropdown">
-                    <a
-                    class="nav-link dropdown-toggle d-flex align-items-center gap-2"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    >
-                        <i class="fas fa-circle-user" style="font-size: 1.9rem; color: #0d6efd;"></i>
-                        <span style="font-size: 1.1rem; font-weight: 600; color: #212529;">{{ Auth::user()->name }}</span>
-                    </a>
-                    <ul class="dropdown-menu shadow">
+                <ul class="navbar-nav flex-row align-items-center ms-auto">
+
+                    <li class="nav-item lh-1 me-3">
+                        <span class="text-muted" id="tanggalSekarang"></span>
+                    </li>
+
+
+                    <!-- User -->
+                    <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                        <a class="nav-link dropdown-toggle hide-arrow d-flex align-items-center" href="javascript:void(0);" data-bs-toggle="dropdown">
+                            <div class="avatar avatar-online me-2">
+                                <img src="{{ Auth::user()->foto ? asset('foto/pelanggan/' . Auth::user()->foto) : url('assets/img/avatars/1.png') }}"
+                                    alt="User Avatar" class="w-px-40 h-px-40 rounded-circle object-fit-cover" />
+                            </div>
+                            <span class="fw-semibold text-dark">{{ Auth::user()->name }}</span>
+                        </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="{{ url('/profile') }}">
-                            <i class="fas fa-user me-2"></i> Profil
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0 me-3">
+                                        <div class="avatar avatar-online">
+                                            <img src="{{ Auth::user()->foto ? asset('foto/pelanggan/' . Auth::user()->foto) : url('assets/img/avatars/1.png') }}"
+                                                class="w-px-40 h-px-40 rounded-circle object-fit-cover" />
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
+                                        <small class="text-muted">{{ Auth::user()->role }}</small>
+                                    </div>
+                                </div>
                             </a>
                         </li>
-                        <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a
-                            class="dropdown-item"
-                            href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                            >
-                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            <div class="dropdown-divider"></div>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <i class="bx bx-user me-2"></i>
+                                <span class="align-middle">My Profile</span>
                             </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('pelanggan.edit', Auth::user()->id) }}">
+                                <i class="bx bx-cog me-2"></i>
+                                <span class="align-middle">Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="dropdown-divider"></div>
+                        </li>
+                        <li>
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="bx bx-power-off me-2"></i>
+                            <span class="align-middle">Log Out</span>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                             </form>
+                        </a>
                         </li>
+
                     </ul>
-                </li>
+                    </li>
+                    <!--/ User -->
                 </ul>
-            </div>
-        </nav>
-        <!-- End Navbar -->
-    </div>
-
-    <div class="container">
-        @yield('content')
-    </div>
-
-    <footer class="footer">
-        <div class="container-fluid d-flex justify-content-between">
-            <nav class="pull-left">
-              <ul class="nav">
-                <li class="nav-item fas fa-map-marker">
-                     Jl. Mayor Santoso No.3112, 20 Ilir D. III, Kec. Ilir Tim. I, Kota Palembang, Sumatera Selatan 30121
-                </li>
-              </ul>
+                </div>
             </nav>
-            <div class="copyright text-bold">Whatsapp : 081215456258</div>
+
+            <div class="content-wrapper">
+                {{-- content --}}
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    @yield('content')
+                </div>
+                <!-- / Content -->
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            </div>
         </div>
-    </footer>
-    </div>
-</div>
-    <!--   Core JS Files   -->
-    <script src="{{ url("assets/js/core/jquery-3.7.1.min.js")}}"></script>
-    <script src="{{ url('assets/js/core/popper.min.js')}}"></script>
-    <script src="{{ url('assets/js/core/bootstrap.min.js')}}"></script>
 
-    <!-- jQuery Scrollbar -->
-    <script src="{{ url("assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js")}}"></script>
+            <!-- Overlay -->
+            <div class="layout-overlay layout-menu-toggle"></div>
+        </div>
+        <!-- / Layout wrapper -->
 
-    <!-- Chart JS -->
-    <script src="{{ url("assets/js/plugin/chart.js/chart.min.js")}}"></script>
+        <script src="{{ url('assets/vendor/libs/jquery/jquery.js') }}"></script>
+        <script src="{{ url('assets/vendor/libs/popper/popper.js') }}"></script>
+        <script src="{{ url('assets/vendor/js/bootstrap.js') }}"></script>
+        <script src="{{ url('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+        <script src="{{ url('assets/vendor/js/menu.js') }}"></script>
+        <script src="{{ url('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+        <script src="{{ url('assets/js/main.js') }}"></script>
+        <script src="{{ url('assets/js/dashboards-analytics.js') }}"></script>
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <script>
+            function updateTanggal() {
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const tanggal = new Date().toLocaleDateString('id-ID', options);
+                document.getElementById('tanggalSekarang').textContent = tanggal;
+            }
 
-    <!-- jQuery Sparkline -->
-    <script src="{{ url("assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js")}}"></script>
+            // Panggil saat pertama kali
+            updateTanggal();
 
-    <!-- Chart Circle -->
-    <script src="{{ url("assets/js/plugin/chart-circle/circles.min.js")}}"></script>
-
-    <!-- Datatables -->
-    <script src="{{ url("assets/js/plugin/datatables/datatables.min.js")}}"></script>
-
-    <!-- Bootstrap Notify -->
-    <script src="{{ url('assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
-
-    <!-- jQuery Vector Maps -->
-    <script src="{{ url("assets/js/plugin/jsvectormap/jsvectormap.min.js")}}"></script>
-    <script src="{{ url("assets/js/plugin/jsvectormap/world.js")}}"></script>
-
-    <!-- Sweet Alert -->
-    <script src="{{ url("assets/js/plugin/sweetalert/sweetalert.min.js")}}"></script>
-
-    <!-- Kaiadmin JS -->
-    <script src="{{ url("assets/js/kaiadmin.min.js")}}"></script>
-
-    <!-- Fonts and icons -->
-    <script src="{{url('assets/js/plugin/webfont/webfont.min.js')}}"></script>
-    <script>
-        WebFont.load({
-            google: { families: ["Public Sans:300,400,500,600,700"] },
-            custom: {
-            families: [
-                "Font Awesome 5 Solid",
-                "Font Awesome 5 Regular",
-                "Font Awesome 5 Brands",
-                "simple-line-icons",
-            ],
-            urls: ["assets/css/fonts.min.css"],
-            },
-            active: function () {
-            sessionStorage.fonts = true;
-            },
-        });
-    </script>
-    <script>
-      $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#177dff",
-        fillColor: "rgba(23, 125, 255, 0.14)",
-      });
-
-      $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#f3545d",
-        fillColor: "rgba(243, 84, 93, .14)",
-      });
-
-      $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#ffa534",
-        fillColor: "rgba(255, 165, 52, .14)",
-      });
-    </script>
-
-    <style>
-        .custom-navbar {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-        .custom-navbar .navbar-brand {
-            font-size: 1.5rem;
-        }
-        .custom-navbar .nav-link {
-            font-size: 1.1rem;
-        }
-        .custom-navbar .fa-circle-user {
-            font-size: 1.8rem;
-        }
-        .custom-navbar .nav-item.dropdown {
-            position: relative;
-        }
-        .custom-navbar .dropdown-menu {
-            font-size: 1rem;
-            min-width: 180px;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            margin-top: 0.5rem;
-            transform: translateX(0);
-            z-index: 9999;
-        }
-    </style>
+            // Kalau ingin update per detik (meskipun tanggal nggak berubah per detik, tapi biar kalau mau realtime bisa)
+            setInterval(updateTanggal, 1000);
+        </script>
     </body>
 </html>

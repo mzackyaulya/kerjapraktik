@@ -9,7 +9,7 @@
         <h5 class="card-title mb-0">Daftar Sopir</h5>
         <div style="position: relative; width: 230px;">
             <input type="text" id="searchInput" class="form-control" placeholder="Pencarian" style="height: 40px; padding-left: 35px;">
-            <i class="fas fa-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #aaa;"></i>
+            <i class="bi bi-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #aaa;"></i>
         </div>
     </div>
 
@@ -32,7 +32,7 @@
             </tr>
             </thead>
             <tbody>
-                @foreach ($sopir as $index => $item)
+                @forelse($sopir as $index => $item)
                     <tr>
                         <td class="text-center">{{ $index + 1 }}</td>
                         <td class="text-center">{{ $item['nama'] }}</td>
@@ -44,13 +44,27 @@
                                 {{ $item['status'] }}
                             </span>
                         </td>
-                        @if(auth()->user()->role == 'A')
+                        @if (auth()->user()->role == 'A')
                             <td class="text-center">
-                                <a href="{{ route('sopir.edit', $item['id']) }}" class="fas fa-pen"></a>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow " data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item text-center" href="{{ route('sopir.edit', $item['id']) }}"><i class="bi bi-pen me-2"></i>Edit</a>
+                                    </div>
+                                </div>
                             </td>
                         @endif
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center">Belum ada Sopir.</td>
+                    </tr>
+                @endforelse
+                <tr id="emptyRow" style="display: none;">
+                    <td colspan="7" class="text-center">Data Sopir tidak ditemukan.</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -67,33 +81,17 @@
     });
   </script>
 @endif
-<!-- confirm dialog -->
-<script type="text/javascript">
-    $('.show_confirm').click(function(event) {
-        let form =  $(this).closest("form");
-        let name = $(this).data("name");
-        event.preventDefault();
-        Swal.fire({
-            title: "Apakah Ingin Hapus? ",
-            text: "data yang dihapus tidak bisa kembali!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "iya"
-        })
-        .then((willDelete) => {
-            if (willDelete.isConfirmed) {
-            form.submit();
-            }
-        });
-    });
-</script>
+
+{{-- Search realtime --}}
 <script>
     document.getElementById('searchInput').addEventListener('keyup', function() {
         let filter = this.value.toUpperCase();
         let rows = document.querySelectorAll('#ruteTable tbody tr');
+        let found = 0;
+
         rows.forEach(row => {
+            if (row.id === 'emptyRow') return;
+
             let nama = row.cells[0].textContent.toUpperCase();
             let alamat = row.cells[1].textContent.toUpperCase();
             let nohp = row.cells[2].textContent.toUpperCase();
@@ -101,17 +99,19 @@
             let status = row.cells[4].textContent.toUpperCase();
 
             if (
-            nama.includes(filter) ||
-            status.includes(filter) ||
-            alamat.includes(filter) ||
-            nohp.includes(filter) ||
-            nosim.includes(filter)
+                nama.includes(filter) ||
+                status.includes(filter) ||
+                alamat.includes(filter) ||
+                nohp.includes(filter) ||
+                nosim.includes(filter)
             ) {
-            row.style.display = "";
+                row.style.display = "";
+                found++;
             } else {
             row.style.display = "none";
             }
         });
+        document.getElementById('emptyRow').style.display = (found === 0) ? "" : "none";
     });
 </script>
 @endsection

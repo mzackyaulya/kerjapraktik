@@ -1,126 +1,137 @@
 @extends('layout.main')
 
-@section('title','Jadwal')
+@section('title','Pemesanan')
 
 @section('content')
 <br>
 <div class="card m-4 p-3">
-    <head>
-        <link href="{{ url('css/app.css') }}" rel="stylesheet">
-        <style>
-            .card-img-top {
-                width: 100%;
-                height: 300px;
-                object-fit: cover;
-            }
-        </style>
-    </head>
     <div class="card-header mb-3 d-flex justify-content-between align-items-center">
-        <h5 class="card-title mb-0">Daftar Jadwal</h5>
+        <h5 class="card-title mb-0">Pemesanan Tiket</h5>
         <div style="position: relative; width: 230px;">
             <input type="text" id="searchInput" class="form-control" placeholder="Pencarian" style="height: 40px; padding-left: 35px;">
-            <i class="fas fa-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #aaa;"></i>
+            <i class="bi bi-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #aaa;"></i>
         </div>
     </div>
 
-    <body>
-        <div class="container">
-            @if(auth()->user()->role == 'A')
-                <a href="{{ route('jadwal.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Jadwal</a>
-            @endif
-            <hr>
-            <div class="row" id="ruteTable">
-                @foreach ($jadwal as $item)
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            <img src="{{ $item['gambar'] }}" class="card-img-top rounded" style="height: 200px; object-fit: cover;">
-                            <div class="card-body">
-                                <h5 class="card-title text-center">{{ $item['rute']['asal'] }} ke {{ $item['rute']['tujuan'] }} ({{ $item['rute']['metode'] }})</h5>
+    <div class="card-body">
+        @if(auth()->user()->role == 'A')
+            <a href="{{ route('pesan.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Pemesanan</a>
+        @endif
 
-                                <div class="mb-2 d-flex">
-                                    <strong class="w-50">Kendaraan</strong>
-                                    <span>: {{ $item['kendaraan']['merk_mobil'] }}</span>
-                                </div>
-                                <div class="mb-2 d-flex">
-                                    <strong class="w-50">Sopir</strong>
-                                    <span>: {{ $item['sopir']['nama'] }}</span>
-                                </div>
-                                <div class="mb-2 d-flex">
-                                    <strong class="w-50">Harga</strong>
-                                    <span>: Rp {{ number_format($item['rute']['harga'],0,',','.') }}</span>
-                                </div>
-                                <div class="mb-2 d-flex">
-                                    <strong class="w-50">Tanggal</strong>
-                                    <span>: {{ \Carbon\Carbon::parse($item['tanggal'])->format('d-m-Y') }}</span>
-                                </div>
-                                <div class="mb-2 d-flex">
-                                    <strong class="w-50">Jam</strong>
-                                    <span>: {{ $item['jam'] }}</span>
-                                </div>
-
-                                <div class="d-flex justify-content-between">
-                                    @if(auth()->user()->role == 'A')
-                                        <a href="{{ route('jadwal.edit', $item['id']) }}" class="fas fa-pen btn btn-info"> Edit</a>
-                                    @endif
-                                    <a href="{{ route('pesan.create', $item['id']) }}" class="btn btn-success fas fa-file-text"> Pesan</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-        <script src="{{ url('js/app.js') }}"></script>
-    </body>
+        <table class="table table-bordered" id="ruteTable">
+            <thead>
+                <tr>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Nama</th>
+                    <th class="text-center">No Hp</th>
+                    <th class="text-center">Alamat</th>
+                    <th class="text-center">Metode</th>
+                    <th class="text-center">Seet</th>
+                    <th class="text-center">Tanggal</th>
+                    <th class="text-center">Jumlah Orang</th>
+                    <th class="text-center">Total Harga</th>
+                    <th class="text-center">Status</th>
+                    @if (auth()->user()->role == 'A')
+                        <th class="text-center">Aksi</th>
+                    @endif
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($pesan as $index => $item)
+                    <tr>
+                        <td class="text-center">{{ $index + 1 }}</td>
+                        <td class="text-center">{{ $item['nama_pemesan'] }}</td>
+                        <td class="text-center">{{ $item['nohp'] }}</td>
+                        <td class="text-center">{{ $item['alamat'] }}</td>
+                        <td class="text-center">{{ $item['jadwal']['rute']['metode'] }}</td>
+                        <td class="text-center">{{ $item['seet'] }}</td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($item['jadwal']['tanggal'])->format('d-m-Y') }}</td>
+                        <td class="text-center">{{ $item['jumlah_orang'] }}</td>
+                        <td class="text-center">Rp. {{ number_format($item['harga_total'], 0, ',', '.') }}</td>
+                        <td class="text-center">
+                            <span class="badge {{ $item['status'] == 'Lunas' ? 'bg-success' : 'bg-warning' }}">
+                                {{ $item['status'] }}
+                            </span>
+                        </td>
+                        @if (auth()->user()->role == 'A')
+                            <td class="text-center">
+                                <a href="#" class="btn btn-sm btn-secondary" title="Print">
+                                    <i class="fas fa-print"></i>
+                                </a>
+                                <a href="{{ route('pesan.edit', $item->id) }}" class="btn btn-sm btn-info" title="Edit">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            </td>
+                        @endif
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="{{ auth()->user()->role == 'A' ? 11 : 10 }}" class="text-center">Belum ada Pemesanan.</td>
+                    </tr>
+                @endforelse
+                <tr id="emptyRow" style="display: none;">
+                    <td colspan="{{ auth()->user()->role == 'A' ? 11 : 10 }}" class="text-center">Data Pemesanan tidak ditemukan.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<script src="{{ url('js/app.js') }}"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @if (session('success'))
-<script>
+  <script>
     Swal.fire({
-    title: "BERHASIL!",
-    text: '{{ session('success')}}',
-    icon: "success"
+      title: "BERHASIL!",
+      text: '{{ session('success') }}',
+      icon: "success"
     });
-</script>
+  </script>
 @endif
-<!-- confirm dialog -->
-<script type="text/javascript">
-    $('.show_confirm').click(function(event) {
-        let form =  $(this).closest("form");
-        let name = $(this).data("name");
-        event.preventDefault();
-        Swal.fire({
-            title: "Apakah Ingin Hapus? ",
-            text: "data yang dihapus tidak bisa kembali!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "iya"
-        })
-        .then((willDelete) => {
-            if (willDelete.isConfirmed) {
-            form.submit();
-            }
-        });
-    });
-</script>
+
+
+{{-- Search realtime --}}
 <script>
     document.getElementById('searchInput').addEventListener('keyup', function() {
         let filter = this.value.toUpperCase();
-        let cards = document.querySelectorAll('#ruteTable .card');
+        let rows = document.querySelectorAll('#ruteTable tbody tr');
+        let found = 0;
 
-        cards.forEach(card => {
-            let textContent = card.textContent.toUpperCase();
+        rows.forEach(row => {
+            if (row.id === 'emptyRow') return;
 
-            if (textContent.includes(filter)) {
-                card.parentElement.style.display = "";  // parentElement = col-md-4
+            let no = row.cells[0].textContent.toUpperCase();
+            let nama = row.cells[1].textContent.toUpperCase();
+            let nohp = row.cells[2].textContent.toUpperCase();
+            let alamat = row.cells[3].textContent.toUpperCase();
+            let metode = row.cells[4].textContent.toUpperCase();
+            let seet = row.cells[5].textContent.toUpperCase();
+            let tanggal = row.cells[6].textContent.toUpperCase();
+            let jumlah_orang = row.cells[7].textContent.toUpperCase();
+            let harga = row.cells[8].textContent.toUpperCase();
+            let status = row.cells[9].textContent.toUpperCase();
+
+            if (
+                no.includes(filter) ||
+                nama.includes(filter) ||
+                nohp.includes(filter) ||
+                alamat.includes(filter) ||
+                metode.includes(filter) ||
+                seet.includes(filter) ||
+                tanggal.includes(filter) ||
+                jumlah_orang.includes(filter) ||
+                harga.includes(filter) ||
+                status.includes(filter)
+            ) {
+                row.style.display = "";
+                found++;
             } else {
-                card.parentElement.style.display = "none";
+                row.style.display = "none";
             }
         });
+
+        // Tampilkan pesan data tidak ditemukan jika pencarian kosong
+        document.getElementById('emptyRow').style.display = (found === 0) ? "" : "none";
     });
 </script>
 @endsection

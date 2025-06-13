@@ -3,63 +3,84 @@
 @section('title','Edit Sopir')
 
 @section('content')
-<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="card p-4 shadow" style="max-width: 600px; width: 100%;">
-        <div class="card-header mb-3">
-            <h5 class="card-title mb-0">Form Edit Sopir</h5>
-        </div>
-        <div class="card-body">
-            <form method="POST" action="{{ route('sopir.update', $sopir['id']) }}" class="forms-sample" enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
-            <div class="form-group">
-                <label for="nama">Nama</label>
-                <input type="text" class="form-control" id="nama" name="nama" value="{{old('nama') ? old('nama'): $sopir['nama'] }}">
-                @error('nama')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
+<br>
+<div class="row">
+    <div class="col-xl">
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold">Form Edit Sopir</h5>
             </div>
+            <div class="card-body">
+                <form action="{{ route('sopir.update', $sopir['id']) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
 
-            <div class="form-group">
-                <label for="alamat">Tujuan Perjalanan</label>
-                <input type="text" class="form-control" id="alamat" name="alamat" value="{{old('alamat') ? old('alamat'): $sopir['alamat'] }}">
-                @error('alamat')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="nama">Nama Sopir</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i class="bx bx-user"></i></span>
+                            <input type="text" name="nama" id="nama" value="{{ $sopir['nama'] }}" class="form-control" placeholder="Masukan Nama Sopir" required>
+                        </div>
+                        @error('nama')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
 
-            <div class="form-group">
-                <label for="nohp">No HP</label>
-                <input type="number" class="form-control" id="nohp" name="nohp" value="{{old('nohp') ? old('nohp'): $sopir['nohp'] }}">
-                @error('nohp')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="alamat">Alamat Sopir</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i class="bx bx-home"></i></span>
+                            <input type="text" name="alamat" id="alamat" value="{{ $sopir['alamat'] }}" class="form-control" placeholder="Masukan Alamat Sopir" required>
+                        </div>
+                        @error('alamat')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
 
-            <div class="form-group">
-                <label for="nosim">No Sim</label>
-                <input type="text" class="form-control" id="nosim" name="nosim" value="{{old('nosim') ? old('nosim'): $sopir['nosim'] }}">
-                @error('nosim')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="nohp">No HP Sopir</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i class="bx bx-phone"></i></span>
+                            <input type="number" name="nohp" id="nohp" value="{{ $sopir['nohp'] }}" class="form-control" placeholder="Masukan No HP Sopir" required>
+                        </div>
+                        @error('nohp')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
 
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select class="form-control" id="status" name="status">
-                    <option value="Aktif" {{ old('status', $sopir['status']) == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                    <option value="Nonaktif" {{ old('status', $sopir['status']) == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
-                </select>
-                @error('status')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="nosim">No SIM Sopir</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i class="bx bx-id-card"></i></span>
+                            <input type="text" name="nosim" id="nosim" value="{{ $sopir['nosim'] }}" class="form-control" placeholder="Masukan No SIM Sopir" required>
+                        </div>
+                        @error('nosim')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
 
-            <div class="form-group text-right mt-3">
-                <button type="submit" class="btn btn-success">Simpan</button>
-                <a href="{{ url('sopir') }}" class="btn btn-secondary">Batal</a>
+                    <div class="mb-3">
+                        <label class="form-label" for="status">Status Sopir</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i class="bx bx-list-check"></i></span>
+                            <select name="status" id="status" class="form-control" required>
+                                <option value="" disabled {{ $sopir['status'] == '' ? 'selected' : '' }}>Pilih Status Sopir</option>
+                                <option value="Aktif" {{ $sopir['status'] == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                <option value="Nonaktif" {{ $sopir['status'] == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+                            </select>
+                        </div>
+                        @error('status')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group text-right mt-3">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <a href="{{ url('sopir') }}" class="btn btn-transparant">Batal</a>
+                    </div>
+
+                </form>
             </div>
-            </form>
         </div>
     </div>
 </div>

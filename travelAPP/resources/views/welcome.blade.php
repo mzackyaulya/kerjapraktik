@@ -1,138 +1,76 @@
 
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>RamaTranz</title>
+		<meta charset="utf-8">
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="{{ url('assets/css/main.css') }}">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	</head>
+	<body>
+		<header id="header" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: transparent; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: fixed; top: 0; left: 0; right: 0; z-index: 999;">
+            <img src="{{ url('foto/ramatrans.png') }}" alt="Logo" style="height: 40px;">
+            <a href="#menu" style="text-decoration: none; color: #fff; background: transparent; padding: 8px 16px; border-radius: 4px;">Menu</a>
+        </header>
 
-<head>
-    <style>
-        .footer {
-            background-color: #2C3E50 !important;
-            background-image: none !important;
-        }
-    </style>
-
-    <meta charset="utf-8">
-    <title>Rama Tranz</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free Website Template" name="keywords">
-    <meta content="Free Website Template" name="description">
-
-    <!-- Favicon -->
-    <link href="{{ asset('assets/img/kaiadmin/rama.png') }}" rel="icon">
-
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css') }}" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet') }}">
-    <link href="{{ asset('lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('css/style.min.css') }}" rel="stylesheet">
-</head>
-
-<body>
-    <!-- Navbar Start -->
-    <div class="container-fluid p-0 nav-bar">
-        <nav class="navbar navbar-expand-lg navbar-dark py-3" style="background: transparent;">
-            <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-                <div class="navbar-nav ml-auto p-3">
-                    <a href="{{ url('dashboard') }}" class="nav-item nav-link">
-                        <i class="fas fa-home mr-1"></i> Home
+		<nav id="menu">
+			<ul class="links">
+                <li>
+                    <a href="{{ url('dashboard') }}">
+                        <i class="bx bx-home-alt" style="margin-right: 8px; vertical-align: middle;"></i> Home
                     </a>
-                    <a href="{{ url('login') }}" class="nav-item nav-link">
-                        <i class="fas fa-sign-in-alt mr-1"></i> Login
+                </li>
+                <li>
+                    <a href="{{ url('login') }}">
+                        <i class="bx bx-log-in" style="margin-right: 8px; vertical-align: middle;"></i> Login
                     </a>
-                    <a href="{{ url('register') }}" class="nav-item nav-link">
-                        <i class="fas fa-user-plus mr-1"></i> Register
+                </li>
+                <li>
+                    <a href="{{ url('register') }}">
+                        <i class="bx bx-user-plus" style="margin-right: 8px; vertical-align: middle;"></i> Register
                     </a>
-                </div>
+                </li>
+            </ul>
+		</nav>
+		<section id="banner" style="min-height: 100vh; background-size: cover; background-position: center;">
+            <div class="inner">
+                <header>
+                    <h1>RamaTranz</h1>
+                    <p>Memberikan pelayanan prima dan hadir sebagai solusi yang bernilai untuk seluruh konsumen.</p>
+                </header>
+                <a href="{{ url('dashboard') }}" class="button big alt scrolly">Beranda</a>
             </div>
-        </nav>
-    </div>
-    <!-- Navbar End -->
+        </section>
 
+        <script src="{{ url('assets/js/jquery.min.js') }}"></script>
+        <script src="{{ url('assets/js/jquery.scrolly.min.js') }}"></script>
+        <script src="{{ url('assets/js/skel.min.js') }}"></script>
+        <script src="{{ url('assets/js/util.js') }}"></script>
+        <script src="{{ url('assets/js/main.js') }}"></script>
 
+        <script>
+            function updateBannerBackground() {
+                const banner = document.getElementById('banner');
+                if (!banner) return;
 
-    <!-- Carousel Start -->
-    <div class="container-fluid p-0 mb-5">
-        <div id="blog-carousel" class="carousel slide overlay-bottom" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="w-100" src="assets/img/kaiadmin/Rama1.jpg" alt="Image" height="700px">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <h2 class="text-primary font-weight-medium m-0">Travel dan Antar Paket</h2>
-                        <h1 class="display-1 text-white m-0">RAMA TRANZ</h1>
-                        <h2 class="text-white m-0">~ SINCE 2012 ~</h2>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="w-100 " src="assets/img/kaiadmin/Rama2.jfif" alt="Image" height="700px">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <h2 class="text-primary font-weight-medium m-0">Travel dan Antar Paket</h2>
-                        <h1 class="display-1 text-white m-0">RAMA TRANZ</h1>
-                        <h2 class="text-white m-0">~ SINCE 2012 ~</h2>
-                    </div>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#blog-carousel" data-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </a>
-            <a class="carousel-control-next" href="#blog-carousel" data-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </a>
-        </div>
-    </div>
-    <!-- Carousel End -->
-    <!-- Footer Start -->
-    <div class="container-fluid footer bg-dark text-white mt-5 pt-5 px-0 position-relative overlay-top">
-        <div class="row mx-0 pt-5 px-sm-3 px-lg-5 mt-4">
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Lokasi</h4>
-                <p><i class="fa fa-map-marker-alt mr-2"></i>Jl. Mayor Santoso No.3112, 20 Ilir D. III, Kec. Ilir Tim. I, Kota Palembang, Sumatera Selatan 30121</p>
-                <p><i class="fa fa-phone-alt mr-2"></i>+6281215456258</p>
-                <p class="m-0"><i class="fa fa-envelope mr-2"></i>ramatrans@gmail.com</p>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Follow Us</h4>
-                <p>Ikuti Media Sosial Kami untuk Info Menariknya :)</p>
-                <div class="d-flex justify-content-start">
-                    <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="https://www.youtube.com/channel/UCY7MCn80wnrJTn219ACedYQ"><i class="fab fa-youtube"></i></a>
-                    <a class="btn btn-lg btn-outline-light btn-lg-square" href="https://www.instagram.com/ramatranstravel?igsh=ZHNvYm1vejhsb3I2"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Waktu Buka</h4>
-                <div>
-                    <h6 class="text-white text-uppercase">Setiap Hari</h6>
-                    <p>07:00 - 21:00</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer End -->
+                const desktopBg = "{{ url('foto/backgrounds.webp') }}";
+                const mobileBg  = "{{ url('foto/backgroundss.webp') }}";
 
+                if (window.innerWidth <= 768) {
+                    console.log("Set background to mobile");
+                    banner.style.backgroundImage = `url('${mobileBg}')`;
+                } else {
+                    console.log("Set background to desktop");
+                    banner.style.backgroundImage = `url('${desktopBg}')`;
+                }
+            }
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
-
-    <!-- JavaScript Libraries -->
-    <script src="{{ asset('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
-    <script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
-    <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('lib/tempusdominus/js/moment.min.js') }}"></script>
-    <script src="{{ asset('lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
-    <script src="{{ asset('lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-
-    <!-- Template Javascript -->
-    <script src="{{ asset('js/main.js') }}"></script>
-</body>
-
+            // Panggil saat load
+            window.addEventListener('load', updateBannerBackground);
+            // Panggil saat window di-resize
+            window.addEventListener('resize', updateBannerBackground);
+        </script>
+	</body>
 </html>
