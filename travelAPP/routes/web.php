@@ -84,7 +84,7 @@ Route::middleware(['auth', 'role:A'])->group(function () {
     Route::put('/kendaraan/{id}', [KendaraanController::class, 'update'])->name('kendaraan.update');
 });
 
-//fitur kendaraan
+//Route Jadwal
 Route::middleware(['auth'])->group(function () {
     Route::resource('jadwal', JadwalController::class);
 });
