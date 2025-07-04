@@ -78,9 +78,10 @@ class PesanController extends Controller
      * @param  \App\Models\pesan  $pesan
      * @return \Illuminate\Http\Response
      */
-    public function show(pesan $pesan)
+    public function show($id)
     {
-        //
+        $pesan = Pesan::with('jadwal.rute')->findOrFail($id); // ambil data dengan relasi jadwal dan rute
+        return view('pesan.show')->with('pesan',$pesan);
     }
 
     /**
@@ -91,29 +92,35 @@ class PesanController extends Controller
      */
     public function edit(pesan $pesan)
     {
-        //
+        $jadwal = jadwal::all();
+        return view('pesan.edit')->with('jadwal',$jadwal)->with('pesan',$pesan);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\pesan  $pesan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, pesan $pesan)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'jadwal_id' => 'required',
+            'nama_pemesan' => 'required',
+            'nohp' => 'required',
+            'alamat' => 'required',
+            'seet' => 'required',
+            'jumlah_orang' => 'required|integer|min:1',
+        ]);
+
+        $pesan = pesan::findOrFail($id);
+        $pesan->update($request->all());
+
+        return redirect()->route('pesan.index')->with('success', 'Data berhasil diperbarui.');
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\pesan  $pesan
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(pesan $pesan)
     {
         //
+    }
+    public function cetak($id)
+    {
+        $pesan = pesan::with('jadwal.rute')->findOrFail($id);
+        return view('pesan.cetak')->with('pesan',$pesan);
     }
 }

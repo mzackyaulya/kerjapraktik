@@ -22,7 +22,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -92,5 +93,6 @@ Route::middleware(['auth'])->group(function () {
 
 Route::resource('pesan', PesanController::class);
 Route::get('/pesan/create/{jadwal_id?}', [PesanController::class, 'create'])->name('pesan.create');
+Route::get('/pesan/cetak/{id}', [PesanController::class, 'cetak'])->name('pesan.cetak');
 
 require __DIR__.'/auth.php';

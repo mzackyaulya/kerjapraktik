@@ -91,12 +91,14 @@
                             <div data-i18n="Jadwal" class="fw-bold text-dark">Rute</div>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a href="{{ url('sopir') }}" class="menu-link">
-                            <i class="menu-icon bi bi-person-badge"></i>
-                            <div data-i18n="Jadwal" class="fw-bold text-dark">Sopir</div>
-                        </a>
-                    </li>
+                    @if(auth()->user()->role == 'A')
+                        <li class="menu-item">
+                            <a href="{{ url('sopir') }}" class="menu-link">
+                                <i class="menu-icon bi bi-person-badge"></i>
+                                <div data-i18n="Jadwal" class="fw-bold text-dark">Sopir</div>
+                            </a>
+                        </li>
+                    @endif
                     <li class="menu-item">
                         <a href="{{ url('kendaraan') }}" class="menu-link">
                             <i class="menu-icon bi bi-car-front"></i>
@@ -181,7 +183,7 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('profile.index') }}">
                                 <i class="bx bx-user me-2"></i>
                                 <span class="align-middle">My Profile</span>
                             </a>
@@ -237,6 +239,7 @@
         <script src="{{ url('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
         <script src="{{ url('assets/js/main.js') }}"></script>
         <script src="{{ url('assets/js/dashboards-analytics.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <script>
             function updateTanggal() {
@@ -251,5 +254,16 @@
             // Kalau ingin update per detik (meskipun tanggal nggak berubah per detik, tapi biar kalau mau realtime bisa)
             setInterval(updateTanggal, 1000);
         </script>
+        @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil Login',
+                text: {!! json_encode(session('success')) !!},
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
+        </script>
+@endif
     </body>
 </html>
