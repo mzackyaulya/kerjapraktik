@@ -25,7 +25,9 @@
 
     <body>
         <div class="container">
-            <a href="{{ route('jadwal.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Jadwal</a>
+            @if (auth()->user()->role == 'A')
+                <a href="{{ route('jadwal.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Jadwal</a>
+            @endif
             <hr>
             <div class="row" id="ruteTable">
                 @foreach ($jadwal as $item)

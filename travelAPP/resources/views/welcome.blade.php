@@ -10,7 +10,7 @@
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 	</head>
 	<body>
-		<header id="header" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: transparent; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: fixed; top: 0; left: 0; right: 0; z-index: 999;">
+		<header id="header" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: Black; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: fixed; top: 0; left: 0; right: 0; z-index: 999;">
             <img src="{{ url('foto/ramatrans.png') }}" alt="Logo" style="height: 40px;">
             <a href="#menu" style="text-decoration: none; color: #fff; background: transparent; padding: 8px 16px; border-radius: 4px;">Menu</a>
         </header>
@@ -55,8 +55,8 @@
                 const banner = document.getElementById('banner');
                 if (!banner) return;
 
-                const desktopBg = "{{ url('foto/backgrounds.webp') }}";
-                const mobileBg  = "{{ url('foto/backgroundss.webp') }}";
+                const desktopBg = "{{ url('foto/BackgroundDesktop.png') }}";
+                const mobileBg  = "{{ url('foto/BackgroundAndroid.png') }}";
 
                 if (window.innerWidth <= 768) {
                     console.log("Set background to mobile");

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('pesans', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignUuid('jadwal_id')->constrained('jadwals')->onDelete('cascade');
             $table->string('nama_pemesan');
             $table->string('nohp');

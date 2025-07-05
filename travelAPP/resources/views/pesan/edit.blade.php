@@ -46,7 +46,8 @@
                 <input type="text" name="nohp" class="form-control" value="{{ old('nohp', $pesan->nohp) }}" required>
                 @error('nohp')
                     <small class="text-danger">{{ $message }}</small>
-                @enderror
+
+                    @enderror
             </div>
 
             <!-- Alamat -->

@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="mb-8 text-center mb-4 mt-4">
-            <img src="{{ asset('foto/backgrounds.png') }}" alt="Banner Travel" class="w-full rounded shadow-md" / width="900px">
+            <img src="{{ asset('foto/BackgroundDesktop.png') }}" alt="Banner Travel" class="w-full rounded shadow-md" / width="900px">
         </div>
 </div>
 @endsection

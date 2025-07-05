@@ -13,7 +13,7 @@
 
 <body class="bg-dark">
 <div class="d-flex align-items-center justify-content-center min-vh-100"
-     style="background: url('{{ asset("foto/backgrounds.png") }}') no-repeat center center; background-size: cover;">
+     style="background: url('{{ asset("foto/BackgroundDesktop.png") }}') no-repeat center center; background-size: cover;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-5 col-lg-4">

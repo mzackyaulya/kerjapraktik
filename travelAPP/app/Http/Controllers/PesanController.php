@@ -10,9 +10,21 @@ class PesanController extends Controller
 {
     public function index()
     {
-        $pesan = pesan::all();
-        return view('pesan.index')-> with('pesan', $pesan);
+        // Ambil user yang sedang login
+        $user = auth()->user();
+
+        // Cek apakah dia admin
+        if ($user->role === 'A') {
+            // Admin melihat semua pesanan
+            $pesan = Pesan::all();
+        } else {
+            // User biasa hanya melihat pesanannya sendiri
+            $pesan = Pesan::where('user_id', $user->id)->get();
+        }
+
+        return view('pesan.index', compact('pesan'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -59,6 +71,7 @@ class PesanController extends Controller
         $hargaTotal = $jadwal->rute->harga * $request->jumlah_orang;
 
         pesan::create([
+            'user_id' => auth()->id(),
             'jadwal_id' => $request->jadwal_id,
             'nama_pemesan' => $request->nama_pemesan,
             'nohp' => $request->nohp,

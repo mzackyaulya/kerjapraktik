@@ -14,7 +14,7 @@ class pesan extends Model
     protected $keyType = 'string';
     protected $fillable =
     [
-        'jadwal_id','nama_pemesan','nohp','alamat','seet','jumlah_orang','harga_total','status'
+        'user_id','jadwal_id','nama_pemesan','nohp','alamat','seet','jumlah_orang','harga_total','status'
     ];
 
     protected static function boot()
@@ -23,6 +23,11 @@ class pesan extends Model
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
         });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function jadwal()
