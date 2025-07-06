@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\jadwal;
 use App\Models\kendaraan;
+use App\Models\pesan;
 use App\Models\rute;
 use App\Models\sopir;
 use Illuminate\Http\Request;
@@ -38,6 +39,14 @@ class JadwalController extends Controller
 
         jadwal::create($val);
         return redirect()->route('jadwal.index')->with('success', 'Data Jadwal berhasil di Tambahkan');
+    }
+
+    public function cetak($id)
+    {
+        $jadwal = Jadwal::with(['rute', 'kendaraan', 'sopir'])->findOrFail($id);
+        $pesanan = pesan::where('jadwal_id', $id)->with('jadwal')->get();
+
+        return view('jadwal.cetak', compact('jadwal', 'pesanan'));
     }
 
     public function show(jadwal $jadwal)

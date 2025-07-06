@@ -86,13 +86,18 @@ Route::middleware(['auth', 'role:A'])->group(function () {
 });
 
 //Route Jadwal
+Route::middleware(['auth', 'role:A'])->group(function () {
+    Route::get('/jadwal/{id}/cetak', [JadwalController::class, 'cetak'])->name('jadwal.cetak');
+});
 Route::middleware(['auth'])->group(function () {
     Route::resource('jadwal', JadwalController::class);
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('pesan', PesanController::class);
+    Route::get('/pesan/create/{jadwal_id?}', [PesanController::class, 'create'])->name('pesan.create');
+    Route::get('/pesan/cetak/{id}', [PesanController::class, 'cetak'])->name('pesan.cetak');
+});
 
-Route::resource('pesan', PesanController::class);
-Route::get('/pesan/create/{jadwal_id?}', [PesanController::class, 'create'])->name('pesan.create');
-Route::get('/pesan/cetak/{id}', [PesanController::class, 'cetak'])->name('pesan.cetak');
 
 require __DIR__.'/auth.php';
