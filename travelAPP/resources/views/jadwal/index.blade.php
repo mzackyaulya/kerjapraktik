@@ -137,12 +137,6 @@
         });
     }
 
-    function resetFilter() {
-        document.getElementById('searchInput').value = "";
-        document.getElementById('dateFilter').value = "";
-        filterCards();
-    }
-
     document.getElementById('searchInput').addEventListener('keyup', filterCards);
     document.getElementById('dateFilter').addEventListener('change', filterCards);
 </script>

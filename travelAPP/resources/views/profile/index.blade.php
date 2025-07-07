@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="text-center mb-4">
+                    <div class="text-center mt-3 mb-4">
                         @if($user->foto)
                             <img
                                 src="{{ $user->foto ? asset('foto/pelanggan/' . $user->foto) : url('assets/img/avatars/1.png') }}"

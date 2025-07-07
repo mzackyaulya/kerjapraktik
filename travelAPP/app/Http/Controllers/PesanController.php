@@ -5,46 +5,71 @@ namespace App\Http\Controllers;
 use App\Models\jadwal;
 use App\Models\pesan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class PesanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil user yang sedang login
+
         $user = auth()->user();
 
-        // Cek apakah dia admin
-        if ($user->role === 'A') {
-            // Admin melihat semua pesanan
-            $pesan = Pesan::all();
-        } else {
-            // User biasa hanya melihat pesanannya sendiri
-            $pesan = Pesan::where('user_id', $user->id)->get();
+        $query = Pesan::select(
+            \DB::raw('MIN(id) as id'),
+            'user_id',
+            'nama_pemesan',
+            'nohp',
+            'alamat',
+            'jadwal_id',
+            \DB::raw("GROUP_CONCAT(seet ORDER BY seet ASC SEPARATOR ', ') as daftar_kursi"),
+            \DB::raw("MIN(created_at) as tanggal_pesan"),
+            \DB::raw("MIN(status) as status"),
+            \DB::raw("COUNT(*) as jumlah_orang")
+        )
+        ->groupBy('user_id', 'nama_pemesan', 'nohp', 'alamat', 'jadwal_id');
+
+        // Jika bukan admin, filter berdasarkan user login
+        if ($user->role !== 'A') {
+            $query->where('user_id', $user->id);
         }
+
+        $pesan = $query->get();
 
         return view('pesan.index', compact('pesan'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create($jadwal_id = null)
     {
-        $jadwal = Jadwal::all();
+        $jadwal = Jadwal::with('kendaraan')->get();
         $selectedJadwal = null;
+        $kursiTersedia = []; // Ganti nama agar cocok dengan yang di view
 
         if ($jadwal_id) {
-            $selectedJadwal = Jadwal::find($jadwal_id);
+            $selectedJadwal = Jadwal::with('kendaraan')->find($jadwal_id);
+
             if (!$selectedJadwal) {
                 return redirect()->back()->with('error', 'Jadwal tidak ditemukan.');
             }
+
+            // Ambil kapasitas kendaraan
+            $kapasitas = $selectedJadwal->kendaraan->kapasitas ?? 0;
+
+            // Buat array nomor kursi dari 1 sampai kapasitas
+            $semuaKursi = range(1, $kapasitas);
+
+            // Ambil kursi yang sudah dibooking
+            $kursiTerisi = Pesan::where('jadwal_id', $selectedJadwal->id)->pluck('seet')->toArray();
+
+            // Filter kursi yang masih tersedia
+            $kursiTersedia = array_diff($semuaKursi, $kursiTerisi);
         }
 
-        return view('pesan.create', compact('jadwal', 'selectedJadwal'));
+        return view('pesan.create', compact('jadwal', 'selectedJadwal', 'kursiTersedia'));
     }
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -60,29 +85,49 @@ class PesanController extends Controller
             return redirect()->back()->with('error', 'Jadwal tidak ditemukan.');
         }
 
-        $request -> validate([
+        $request->validate([
             'jadwal_id' => 'required|exists:jadwals,id',
             'nama_pemesan' => 'required|max:45',
             'nohp' => 'required|max:45',
             'alamat' => 'required|max:45',
-            'seet' => 'required|min:1|max:9',
+            'seet' => 'required|array|min:1',
+            'seet.*' => 'numeric',
             'jumlah_orang' => 'required|integer|min:1',
         ]);
-        $hargaTotal = $jadwal->rute->harga * $request->jumlah_orang;
 
-        pesan::create([
-            'user_id' => auth()->id(),
-            'jadwal_id' => $request->jadwal_id,
-            'nama_pemesan' => $request->nama_pemesan,
-            'nohp' => $request->nohp,
-            'alamat' => $request->alamat,
-            'seet' => $request->seet,
-            'jumlah_orang' => $request->jumlah_orang,
-            'harga_total' => $hargaTotal,
-            'status' => 'Pending',
-        ]);
+        $jadwal = Jadwal::findOrFail($request->jadwal_id);
+        $hargaSatuan = $jadwal->rute->harga;
 
-        return redirect()->route('pesan.index')->with('success', 'Data Pemesanan telah dibuat');
+        if (count($request->seet) != $request->jumlah_orang) {
+            return back()->withErrors(['seet' => 'Jumlah kursi yang dipilih harus sesuai dengan jumlah orang.']);
+        }
+
+        // Loop simpan data
+        foreach ($request->seet as $kursi) {
+            // Cek apakah kursi sudah diambil
+            $sudahTerisi = Pesan::where('jadwal_id', $request->jadwal_id)
+                                ->where('seet', $kursi)
+                                ->exists();
+
+            if ($sudahTerisi) {
+                return back()->withErrors(['seet' => "Kursi nomor $kursi sudah dipesan."]);
+            }
+
+            Pesan::create([
+                'user_id' => auth()->id(),
+                'jadwal_id' => $request->jadwal_id,
+                'nama_pemesan' => $request->nama_pemesan,
+                'nohp' => $request->nohp,
+                'alamat' => $request->alamat,
+                'seet' => $kursi,
+                'jumlah_orang' => 1,
+                'harga_total' => $hargaSatuan,
+                'status' => 'Pending',
+            ]);
+        }
+
+        return redirect()->route('pesan.index')->with('success', 'Pemesanan berhasil.');
+
     }
 
     /**
@@ -135,5 +180,22 @@ class PesanController extends Controller
     {
         $pesan = pesan::with('jadwal.rute')->findOrFail($id);
         return view('pesan.cetak')->with('pesan',$pesan);
+    }
+    public function konfirmasi($id)
+    {
+        $pesan = Pesan::findOrFail($id);
+        $pesan->status = 'Dikonfirmasi';
+        $pesan->save();
+
+        return redirect()->back()->with('success', 'Status berhasil dikonfirmasi.');
+    }
+
+    public function batal($id)
+    {
+        $pesan = Pesan::findOrFail($id);
+        $pesan->status = 'Batal';
+        $pesan->save();
+
+        return redirect()->back()->with('success', 'Status berhasil dibatalkan.');
     }
 }

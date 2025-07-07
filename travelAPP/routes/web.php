@@ -100,7 +100,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('pesan', PesanController::class);
     Route::get('/pesan/create/{jadwal_id?}', [PesanController::class, 'create'])->name('pesan.create');
     Route::get('/pesan/cetak/{id}', [PesanController::class, 'cetak'])->name('pesan.cetak');
+    Route::patch('/pesan/{id}/konfirmasi', [PesanController::class, 'konfirmasi'])->name('pesan.konfirmasi');
+    Route::patch('/pesan/{id}/batal', [PesanController::class, 'batal'])->name('pesan.batal');
 });
+
 
 
 require __DIR__.'/auth.php';
