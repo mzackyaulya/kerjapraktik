@@ -40,14 +40,13 @@
                 @enderror
             </div>
 
-            <!-- No HP -->
+            <!-- Nomor HP -->
             <div class="mb-3">
                 <label for="nohp" class="form-label">Nomor HP</label>
                 <input type="text" name="nohp" class="form-control" value="{{ old('nohp', $pesan->nohp) }}" required>
                 @error('nohp')
                     <small class="text-danger">{{ $message }}</small>
-
-                    @enderror
+                @enderror
             </div>
 
             <!-- Alamat -->
@@ -59,34 +58,37 @@
                 @enderror
             </div>
 
-            <!-- Nomor Kursi (Seet) -->
-            <div class="mb-3">
-                <label for="seet" class="form-label">Nomor Kursi</label>
-                <input type="text" name="seet" class="form-control" value="{{ old('seet', $pesan->seet) }}" required>
-                @error('seet')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-
             <!-- Jumlah Orang -->
             <div class="mb-3">
                 <label for="jumlah_orang" class="form-label">Jumlah Orang</label>
-                <input type="number" name="jumlah_orang" class="form-control" value="{{ old('jumlah_orang', $pesan->jumlah_orang) }}" min="1" required>
+                <input type="number" name="jumlah_orang" id="jumlah_orang" class="form-control"
+                    value="{{ old('jumlah_orang', $jumlah_orang) }}" min="1" required>
                 @error('jumlah_orang')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
 
-            <!-- Status -->
+            <!-- Pilih Kursi -->
             <div class="mb-3">
-                <label for="status" class="form-label">Status</label>
-                <select name="status" id="status" class="form-control" required>
-                    <option value="">-- Pilih Status --</option>
-                    <option value="Pending" {{ old('status', $pesan->status) == 'Pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="Dikonfirmasi" {{ old('status', $pesan->status) == 'Dikonfirmasi' ? 'selected' : '' }}>Dikonfirmasi</option>
-                    <option value="Batal" {{ old('status', $pesan->status) == 'Batal' ? 'selected' : '' }}>Batal</option>
-                </select>
-                @error('status')
+                <label class="form-label">Pilih Kursi (Sesuai Jumlah Orang)</label>
+                <div class="row row-cols-4 g-2">
+                    @foreach($kursiTersedia as $kursi)
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input kotak-kursi"
+                                    type="checkbox"
+                                    name="seet[]"
+                                    value="{{ $kursi }}"
+                                    id="kursi{{ $kursi }}"
+                                    {{ in_array($kursi, $kursiUserIni ?? []) ? 'checked' : '' }}
+                                    disabled>
+                                <label class="form-check-label" for="kursi{{ $kursi }}">{{ $kursi }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <small id="info-kursi-terpilih" class="text-muted mt-2 d-block">Masukkan jumlah orang untuk mengaktifkan pilihan kursi.</small>
+                @error('seet')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
@@ -97,4 +99,43 @@
         </form>
     </div>
 </div>
+
+<!-- Script Validasi Kursi -->
+<script>
+    const inputJumlahOrang = document.querySelector('#jumlah_orang');
+    const checkboxKursi = document.querySelectorAll('.kotak-kursi');
+    const infoKursi = document.getElementById('info-kursi-terpilih');
+
+    function perbaruiKursi() {
+        const jumlahMaks = parseInt(inputJumlahOrang.value) || 0;
+        const kursiDipilih = [...checkboxKursi].filter(cb => cb.checked);
+
+        if (!jumlahMaks || jumlahMaks <= 0) {
+            checkboxKursi.forEach(cb => {
+                cb.checked = false;
+                cb.disabled = true;
+            });
+            infoKursi.textContent = 'Masukkan jumlah orang untuk mengaktifkan pilihan kursi.';
+            infoKursi.className = 'text-muted mt-1 d-block';
+            return;
+        }
+
+        checkboxKursi.forEach(cb => cb.disabled = false);
+
+        if (kursiDipilih.length >= jumlahMaks) {
+            checkboxKursi.forEach(cb => {
+                if (!cb.checked) cb.disabled = true;
+            });
+        } else {
+            checkboxKursi.forEach(cb => cb.disabled = false);
+        }
+
+        infoKursi.textContent = `Kursi dipilih: ${kursiDipilih.length} dari ${jumlahMaks}`;
+        infoKursi.className = kursiDipilih.length > jumlahMaks ? 'text-danger mt-1 d-block' : 'text-primary mt-1 d-block';
+    }
+
+    inputJumlahOrang.addEventListener('input', perbaruiKursi);
+    checkboxKursi.forEach(cb => cb.addEventListener('change', perbaruiKursi));
+    perbaruiKursi(); // panggil saat awal
+</script>
 @endsection

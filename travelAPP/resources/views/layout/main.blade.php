@@ -297,7 +297,7 @@
         <script>
             Swal.fire({
                 icon: 'success',
-                title: 'Berhasil Login',
+                title: 'Berhasil',
                 text: {!! json_encode(session('success')) !!},
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK'

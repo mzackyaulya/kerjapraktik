@@ -64,22 +64,22 @@
                                     </a>
                                 </li>
                                 @if(auth()->user()->role == 'A')
-                                <li>
-                                    <a href="{{ route('pesan.cetak', ['id' => $item['id']]) }}" target="_blank" class="dropdown-item">
-                                        <i class="fas fa-print me-2 text-dark"></i> Cetak
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a href="{{ route('pesan.cetak', ['id' => $item['id']]) }}" target="_blank" class="dropdown-item">
+                                            <i class="fas fa-print me-2 text-dark"></i> Cetak
+                                        </a>
+                                    </li>
                                 @endif
                                 @if($item['status'] !== 'Dikonfirmasi')
-                                <li>
-                                    <form action="{{ route('pesan.konfirmasi', ['id' => $item['id']]) }}" method="POST" onsubmit="return confirm('Konfirmasi pemesanan ini?')">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button class="dropdown-item" type="submit">
-                                            <i class="fas fa-check-circle me-2 text-success"></i> Dikonfirmasi
-                                        </button>
-                                    </form>
-                                </li>
+                                    <li>
+                                        <form action="{{ route('pesan.konfirmasi', ['id' => $item['id']]) }}" method="POST" onsubmit="return confirm('Konfirmasi pemesanan ini?')">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button class="dropdown-item" type="submit">
+                                                <i class="fas fa-check-circle me-2 text-success"></i> Dikonfirmasi
+                                            </button>
+                                        </form>
+                                    </li>
                                 @endif
                                 @if($item['status'] !== 'Batal')
                                 <li>
@@ -104,36 +104,64 @@
     {{-- MOBILE CARD --}}
     <div class="card-body d-block d-md-none" id="mobileCards">
         @foreach ($pesan as $item)
-        <div class="card mb-3 shadow-sm border border-light searchable-card">
-            <div class="card-body">
-                <h6 class="card-title mb-2 d-flex justify-content-between">
-                    <span>{{ $item['nama_pemesan'] }}</span>
-                    <span class="badge
-                        {{ $item['status'] === 'Pending' ? 'bg-warning text-dark' :
-                           ($item['status'] === 'Dikonfirmasi' ? 'bg-success' : 'bg-secondary') }}">
-                        {{ $item['status'] }}
-                    </span>
-                </h6>
-                <p class="mb-1"><strong>No HP:</strong> {{ $item['nohp'] }}</p>
-                <p class="mb-1"><strong>Kursi:</strong> {{ $item['daftar_kursi'] ?? $item['seet'] }}</p>
-                <p class="mb-1"><strong>Jumlah:</strong> {{ $item['jumlah_orang'] ?? '-' }}</p>
-                <p class="mb-1"><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($item['tanggal_pesan'] ?? $item['jadwal']['tanggal'])->format('d-m-Y') }}</p>
-                <p class="mb-1"><strong>Jam:</strong> {{ $item['jadwal']['jam'] ?? '-' }}</p>
-                <div class="d-flex justify-content-start gap-2 mt-2">
-                    <a href="{{ route('pesan.show', ['pesan' => $item['id']]) }}" class="btn btn-sm btn-secondary">
-                        <i class="fas fa-eye"></i>
-                    </a>
-                    <a href="{{ route('pesan.edit', ['pesan' => $item['id']]) }}" class="btn btn-sm btn-info">
-                        <i class="fas fa-pen"></i>
-                    </a>
-                    @if (auth()->user()->role == 'A')
-                        <a href="{{ route('pesan.cetak', ['id' => $item['id']]) }}" class="btn btn-sm btn-dark">
-                            <i class="fas fa-print"></i>
+            <div class="card mb-3 shadow-sm border border-light searchable-card">
+                <div class="card-body">
+                    <h6 class="card-title mb-2 d-flex justify-content-between">
+                        <span>{{ $item['nama_pemesan'] }}</span>
+                        <span class="badge
+                            {{ $item['status'] === 'Pending' ? 'bg-warning text-dark' :
+                            ($item['status'] === 'Dikonfirmasi' ? 'bg-success' : 'bg-secondary') }}">
+                            {{ $item['status'] }}
+                        </span>
+                    </h6>
+                    <p class="mb-1"><strong>No HP:</strong> {{ $item['nohp'] }}</p>
+                    <p class="mb-1"><strong>Kursi:</strong> {{ $item['daftar_kursi'] ?? $item['seet'] }}</p>
+                    <p class="mb-1"><strong>Jumlah:</strong> {{ $item['jumlah_orang'] ?? '-' }}</p>
+                    <p class="mb-1"><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($item['tanggal_pesan'] ?? $item['jadwal']['tanggal'])->format('d-m-Y') }}</p>
+                    <p class="mb-1"><strong>Jam:</strong> {{ $item['jadwal']['jam'] ?? '-' }}</p>
+
+                    <div class="d-flex justify-content-start flex-wrap gap-2 mt-3">
+                        {{-- Info --}}
+                        <a href="{{ route('pesan.show', ['pesan' => $item['id']]) }}" class="btn btn-sm btn-secondary" title="Lihat">
+                            <i class="fas fa-eye"></i>
                         </a>
-                    @endif
+
+                        {{-- Edit --}}
+                        <a href="{{ route('pesan.edit', ['pesan' => $item['id']]) }}" class="btn btn-sm btn-info" title="Edit">
+                            <i class="fas fa-pen"></i>
+                        </a>
+
+                        {{-- Cetak --}}
+                        @if (auth()->user()->role == 'A')
+                            <a href="{{ route('pesan.cetak', ['id' => $item['id']]) }}" target="_blank" class="btn btn-sm btn-dark" title="Cetak">
+                                <i class="fas fa-print"></i>
+                            </a>
+                        @endif
+
+                        {{-- Dikonfirmasi --}}
+                        @if (auth()->user()->role == 'A' && $item['status'] !== 'Dikonfirmasi')
+                            <form action="{{ route('pesan.konfirmasi', $item['id']) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="bg-gray">
+                                    <i class="fas fa-check-circle text-success"></i>
+                                </button>
+                            </form>
+                        @endif
+
+                        {{-- Batal --}}
+                        @if (auth()->user()->role == 'A' && $item['status'] !== 'Batal')
+                            <form action="{{ route('pesan.batal', ['id' => $item['id']]) }}" method="POST" onsubmit="return confirm('Batalkan pemesanan ini?')">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-sm btn-danger" title="Batal">
+                                    <i class="fas fa-times-circle"></i>
+                                </button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
         @endforeach
     </div>
 </div>
