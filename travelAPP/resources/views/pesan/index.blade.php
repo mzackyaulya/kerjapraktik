@@ -196,4 +196,46 @@
     });
 </script>
 @endif
+
+<script>
+    const inputJumlahOrang = document.querySelector('#jumlah_orang');
+    const checkboxKursi = document.querySelectorAll('.kotak-kursi');
+    const infoKursi = document.getElementById('info-kursi-terpilih');
+
+    function perbaruiKursi() {
+        const jumlahMaks = parseInt(inputJumlahOrang.value) || 0;
+        const kursiDipilih = [...checkboxKursi].filter(cb => cb.checked);
+
+        // Reset semua checkbox jika jumlah kosong atau 0
+        if (!jumlahMaks || jumlahMaks <= 0) {
+            checkboxKursi.forEach(cb => {
+                cb.checked = false;
+                cb.disabled = true;
+            });
+            infoKursi.textContent = 'Masukkan jumlah orang untuk mengaktifkan pilihan kursi.';
+            infoKursi.className = 'text-muted mt-1 d-block';
+            return;
+        }
+
+        // Aktifkan semua kursi, lalu batasi sesuai jumlah orang
+        checkboxKursi.forEach(cb => {
+            cb.disabled = kursiDipilih.length >= jumlahMaks && !cb.checked;
+        });
+
+        infoKursi.textContent = `Kursi dipilih: ${kursiDipilih.length} dari ${jumlahMaks}`;
+        infoKursi.className = kursiDipilih.length > jumlahMaks ? 'text-danger mt-1 d-block' : 'text-primary mt-1 d-block';
+    }
+
+    inputJumlahOrang.addEventListener('input', () => {
+        checkboxKursi.forEach(cb => {
+            cb.checked = false;
+        cb.disabled = false;
+        });
+        perbaruiKursi();
+    });
+
+    checkboxKursi.forEach(cb => cb.addEventListener('change', perbaruiKursi));
+    perbaruiKursi();
+</script>
+
 @endsection

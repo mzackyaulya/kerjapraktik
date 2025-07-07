@@ -185,7 +185,7 @@
           <td class="label">No. Telepon</td>
           <td><div class="box-input-half">{{ $pesan->nohp ?? '-' }}</div></td>
           <td class="label">JUMLAH</td>
-          <td><div class="box-small">{{ $pesan->jumlah_penumpang ?? '1' }}</div></td>
+          <td><div class="box-small">{{ $pesan->jumlah_orang ?? '1' }}</div></td>
         </tr>
         <tr>
           <td class="label">TUJUAN</td>

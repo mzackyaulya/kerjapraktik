@@ -83,7 +83,7 @@
                     @if (auth()->user()->role == 'A')
                         <div class="text-center">
                             <a href="{{ route('rute.edit', $item['id']) }}">
-                                <i class="bx bx-edit-alt me-2 text-gray"></i>
+                                <i class="fas fa-pen me-2 text-gray"></i>
                             </a>
                         </div>
                     @endif

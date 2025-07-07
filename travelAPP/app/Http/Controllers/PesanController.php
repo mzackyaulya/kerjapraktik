@@ -269,7 +269,7 @@ class PesanController extends Controller
                 'nohp' => $request->nohp,
                 'alamat' => $request->alamat,
                 'seet' => $kursi,
-                'jumlah_orang' => 1,
+                'jumlah_orang' => $request->jumlah_orang,
                 'harga_total' => $hargaSatuan,
                 'status' => $statusLama[$index] ?? 'Pending',
             ]);

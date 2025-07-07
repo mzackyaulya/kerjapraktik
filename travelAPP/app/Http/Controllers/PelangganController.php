@@ -48,6 +48,6 @@ class PelangganController extends Controller
             $pelanggan->update(['foto' => $fotoName]);
         }
 
-        return redirect()->route('pelanggan.index')->with('success', 'Data User berhasil diperbarui.');
+        return redirect()->route('profile.index')->with('success', 'Data User berhasil diperbarui.');
     }
 }
