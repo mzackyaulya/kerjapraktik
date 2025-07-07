@@ -53,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 //Route Rute
-Route::middleware(['auth', 'role:A,U     '])->group(function () {
+Route::middleware(['auth', 'role:A,U'])->group(function () {
     Route::get('/rute', [RuteController::class, 'index'])->name('rute.index');
 });
 Route::middleware(['auth', 'role:A'])->group(function () {

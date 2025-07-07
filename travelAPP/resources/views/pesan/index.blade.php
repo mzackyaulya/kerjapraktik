@@ -106,14 +106,14 @@
         @foreach ($pesan as $item)
             <div class="card mb-3 shadow-sm border border-light searchable-card">
                 <div class="card-body">
-                    <h6 class="card-title mb-2 d-flex justify-content-between">
-                        <span>{{ $item['nama_pemesan'] }}</span>
+                    <h5 class="card-title mb-2 d-flex justify-content-between">
+                        <span class="text-black fw-bold">{{ $item['nama_pemesan'] }}</span>
                         <span class="badge
                             {{ $item['status'] === 'Pending' ? 'bg-warning text-dark' :
                             ($item['status'] === 'Dikonfirmasi' ? 'bg-success' : 'bg-secondary') }}">
                             {{ $item['status'] }}
                         </span>
-                    </h6>
+                    </h5>
                     <p class="mb-1"><strong>No HP:</strong> {{ $item['nohp'] }}</p>
                     <p class="mb-1"><strong>Kursi:</strong> {{ $item['daftar_kursi'] ?? $item['seet'] }}</p>
                     <p class="mb-1"><strong>Jumlah:</strong> {{ $item['jumlah_orang'] ?? '-' }}</p>

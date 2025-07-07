@@ -12,11 +12,10 @@
             <i class="bi bi-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #aaa;"></i>
         </div>
     </div>
-
-    <div class="card-body">
-        @if(auth()->user()->role == 'A')
-            <a href="{{ route('rute.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Rute</a>
-        @endif
+     @if(auth()->user()->role == 'A')
+        <a href="{{ route('rute.create') }}" class="btn btn-primary col-lg-12 mb-3">Tambah Rute</a>
+     @endif
+    <div class="card-body table-responsive d-none d-md-block">
 
         <table class="table table-bordered" id="ruteTable">
             <thead>
@@ -65,8 +64,34 @@
             </tbody>
         </table>
     </div>
-</div>
 
+
+    <div class="card-body d-block d-md-none" id="mobileCards">
+        @foreach ($rute as $item)
+            <div class="card mb-3 shadow-sm border border-light searchable-card">
+                <div class="card-body">
+                    <h6 class="card-title mb-2 d-flex justify-content-between">
+                        <span class="text-black fw-bold">{{ $item['asal'] }}</span>
+                        -
+                        <span class="text-black fw-bold">{{ $item['tujuan'] }}</span>
+                    </h6>
+                    <p class="mb-1"><strong>Metode :</strong> {{ $item['metode'] }}</p>
+                    <p class="mb-1"><strong>Harga :</strong> Rp. {{ number_format($item['harga'],0,',','.') }}</p>
+                    <p class="mb-1"><strong>Estimasi :</strong> {{ $item['estimasi_waktu'] }}</p>
+
+                        {{-- Edit --}}
+                    @if (auth()->user()->role == 'A')
+                        <div class="text-center">
+                            <a href="{{ route('rute.edit', $item['id']) }}">
+                                <i class="bx bx-edit-alt me-2 text-gray"></i>
+                            </a>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
 {{-- jQuery & SweetAlert --}}
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
