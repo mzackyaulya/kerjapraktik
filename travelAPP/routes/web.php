@@ -17,9 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+use App\Http\Controllers\DashboardController;
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
@@ -50,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 //Route Rute
-Route::middleware(['auth', 'role:A,U'])->group(function () {
+Route::middleware(['auth', 'role:A,U     '])->group(function () {
     Route::get('/rute', [RuteController::class, 'index'])->name('rute.index');
 });
 Route::middleware(['auth', 'role:A'])->group(function () {

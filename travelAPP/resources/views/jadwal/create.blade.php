@@ -89,18 +89,6 @@
                         @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label" for="gambar">URL Gambar Jadwal</label>
-                        <div class="input-group input-group-merge">
-                            <span class="input-group-text"><i class="bx bx-image"></i></span>
-                            <input type="text" name="gambar" id="gambar" value="{{ old('gambar') }}" class="form-control"
-                                placeholder="Masukan URL gambar jadwal" required>
-                        </div>
-                        @error('gambar')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
                     <div class="form-group text-right mt-3">
                         <button type="submit" class="btn btn-success">Simpan</button>
                         <a href="{{ url('jadwal') }}" class="btn btn-transparant">Cancel</a>

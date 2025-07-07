@@ -8,6 +8,7 @@ use App\Models\pesan;
 use App\Models\rute;
 use App\Models\sopir;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class JadwalController extends Controller
 {
@@ -29,13 +30,14 @@ class JadwalController extends Controller
     public function store(Request $request)
     {
         $val = $request-> validate([
-            'gambar' => 'required|url',
             'rute_id' => 'required|exists:rutes,id',
             'kendaraan_id' => 'required|exists:kendaraans,id',
             'sopir_id' => 'required|exists:sopirs,id',
             'tanggal' => 'required|date',
             'jam' => 'required|date_format:H:i'
         ]);
+
+        $val['gambar'] = 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Tugu_Siger.jpg';
 
         jadwal::create($val);
         return redirect()->route('jadwal.index')->with('success', 'Data Jadwal berhasil di Tambahkan');
@@ -66,13 +68,14 @@ class JadwalController extends Controller
     public function update(Request $request, jadwal $jadwal)
     {
         $val = $request-> validate([
-            'gambar' => 'required|url',
             'rute_id' => 'required|exists:rutes,id',
             'kendaraan_id' => 'required|exists:kendaraans,id',
             'sopir_id' => 'required|exists:sopirs,id',
             'tanggal' => 'required|date',
             'jam' => 'nullable'
         ]);
+
+        $val['gambar'] = 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Tugu_Siger.jpg';
 
         jadwal::where('id', $jadwal['id'])->update($val);
         return redirect()->route('jadwal.index')->with('success', 'Data Jadwal berhasil di Perbarui');

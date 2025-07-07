@@ -172,13 +172,14 @@
                         <!-- Search -->
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
-                            <i class="bx bx-search fs-4 lh-0"></i>
-                            <input
+                                <i class="bx bx-search fs-4 lh-0"></i>
+                                <input
+                                id="searchInput"
                                 type="text"
                                 class="form-control border-0 shadow-none"
                                 placeholder="Search..."
                                 aria-label="Search..."
-                            />
+                                />
                             </div>
                         </div>
                         <!-- /Search -->
@@ -188,7 +189,6 @@
                             <li class="nav-item lh-1 me-3">
                                 <span class="text-muted" id="tanggalSekarang"></span>
                             </li>
-
 
                             <!-- User -->
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -235,15 +235,14 @@
                                     <div class="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="bx bx-power-off me-2"></i>
-                                    <span class="align-middle">Log Out</span>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                    </form>
-                                </a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="bx bx-power-off me-2"></i>
+                                        <span class="align-middle">Log Out</span>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                        </form>
+                                    </a>
                                 </li>
-
                             </ul>
                             </li>
                             <!--/ User -->
@@ -317,6 +316,17 @@
                 text: {!! json_encode(session('success')) !!},
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK'
+            });
+        </script>
+        <script>
+            document.getElementById("searchInput").addEventListener("keypress", function (e) {
+                if (e.key === "Enter") {
+                const query = this.value.trim();
+                if (query !== "") {
+                    // Redirect ke halaman pencarian dengan query
+                    window.location.href = "/search?query=" + encodeURIComponent(query);
+                }
+                }
             });
         </script>
 @endif

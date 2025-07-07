@@ -4,7 +4,7 @@
 
 @section('content')
 <br>
-<div class="card m-2 p-3">
+<div class="card p-2">
     <head>
         <link href="{{ url('css/app.css') }}" rel="stylesheet">
         <style>
