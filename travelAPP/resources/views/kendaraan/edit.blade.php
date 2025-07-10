@@ -56,8 +56,8 @@
             </div>
 
             <div class="form-group text-right mt-3">
-                <button type="submit" class="btn btn-success">Simpan</button>
-                <a href="{{ url('kendaraan') }}" class="btn btn-secondary">Batal</a>
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="{{ url('kendaraan') }}" class="btn btn-transparant">Batal</a>
             </div>
             </form>
         </div>

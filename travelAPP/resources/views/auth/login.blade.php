@@ -31,7 +31,7 @@
                                 <label for="email" class="form-label">Email Address</label>
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Masukan Email Address">
+                                    <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" placeholder="Masukan Email Address">
                                 </div>
                                 @error('email')
                                     <div class="text-danger small">{{ $message }}</div>
@@ -43,6 +43,7 @@
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="bx bx-lock"></i></span>
                                     <input type="password" class="form-control" name="password" id="password" placeholder="Masukan Password">
+                                    <span class="input-group-text"><i class="bx bx-show" id="togglePassword"></i></span>
                                 </div>
                                 @error('password')
                                     <div class="text-danger small">{{ $message }}</div>
@@ -65,8 +66,30 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordField = document.getElementById('password');
+        const togglePasswordIcon = document.getElementById('togglePassword');
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        if (passwordField && togglePasswordIcon) {
+            togglePasswordIcon.addEventListener('click', function() {
+                // Toggle the type attribute of the password input
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+
+                // Toggle the icon class (bx-show <-> bx-hide)
+                if (type === 'password') {
+                    togglePasswordIcon.classList.remove('bx-show');
+                    togglePasswordIcon.classList.add('bx-hide');
+                } else {
+                    togglePasswordIcon.classList.remove('bx-hide');
+                    togglePasswordIcon.classList.add('bx-show');
+                }
+            });
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

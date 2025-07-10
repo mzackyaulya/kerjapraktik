@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $sisa_kursi
+ */
 class jadwal extends Model
 {
     use HasFactory;

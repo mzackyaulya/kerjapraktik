@@ -25,7 +25,7 @@ class PesanController extends Controller
             \DB::raw("GROUP_CONCAT(seet ORDER BY seet ASC SEPARATOR ', ') as daftar_kursi"),
             \DB::raw("MIN(created_at) as tanggal_pesan"),
             \DB::raw("MIN(status) as status"),
-            \DB::raw("COUNT(*) as jumlah_orang")
+            \DB::raw("SUM(jumlah_orang) as jumlah_orang")
         )
         ->groupBy('user_id', 'nama_pemesan', 'nohp', 'alamat', 'jadwal_id');
 

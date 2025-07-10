@@ -61,6 +61,7 @@
                                 <strong class="w-50">Jam</strong>
                                 <span>: {{ $item['jam'] }}</span>
                             </div>
+                            
                             <div class="d-flex justify-content-center gap-2 flex-wrap mt-3">
                                 @if(auth()->user()->role == 'A')
                                     <a href="{{ route('jadwal.edit', $item['id']) }}" class="btn btn-info">
@@ -72,9 +73,15 @@
                                         <i class="fas fa-print"></i> Cetak
                                     </a>
                                 @endif
-                                <a href="{{ route('pesan.create', $item['id']) }}" class="btn btn-success">
-                                    <i class="fas fa-file-text"></i> Pesan
-                                </a>
+                                @if($item->sisa_kursi > 0)
+                                    <a href="{{ route('pesan.create', $item['id']) }}" class="btn btn-success">
+                                        <i class="fas fa-file-text"></i> Pesan
+                                    </a>
+                                @else
+                                    <span class="btn btn-secondary disabled">
+                                        <i class="fas fa-ban"></i> Penuh
+                                    </span>
+                                @endif
                             </div>
                         </div>
                     </div>

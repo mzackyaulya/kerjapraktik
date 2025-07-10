@@ -65,7 +65,6 @@
         </table>
     </div>
 
-
     <div class="card-body d-block d-md-none" id="mobileCards">
         @foreach ($rute as $item)
             <div class="card mb-3 shadow-sm border border-light searchable-card">

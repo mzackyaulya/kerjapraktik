@@ -152,82 +152,84 @@
   </style>
 </head>
 <body onload="window.print()">
-  <div class="ticket">
-    <!-- Bagian Kiri -->
-    <div class="left">
-      <!-- HEADER -->
-        <div class="header">
-            <div class="header-left">
-                <img src="{{ asset('foto/icon.png') }}" alt="Logo">
+    <div class="ticket">
+        <!-- Bagian Kiri -->
+        <div class="left">
+            <!-- HEADER -->
+            <div class="header">
+                <div class="header-left">
+                    <img src="{{ asset('foto/icon.png') }}" alt="Logo">
+                </div>
+                <div class="header-center">
+                    <h1>RAMA TRANZ</h1>
+                    <h2>PT. Rasya Mandiri Tranz</h2>
+                </div>
             </div>
-            <div class="header-center">
-                <h1>RAMA TRANZ</h1>
-                <h2>PT. Rasya Mandiri Tranz</h2>
+            <hr class="header-divider">
+
+
+            <table class="field-table">
+                <tr>
+                    <td class="label">NAMA</td>
+                    <td colspan="3"><div class="box-input-long">{{ $pesan->nama_pemesan }}</div></td>
+                </tr>
+                <tr>
+                    <td class="label">ALAMAT</td>
+                    <td colspan="3"><div class="box-input-long">{{ $pesan->alamat ?? '-' }}</div></td>
+                </tr>
+                <tr>
+                    <td class="label">METODE</td>
+                    <td colspan="3"><div class="box-input-long">{{ $pesan->jadwal->rute->metode ?? '-' }}</div></td>
+                </tr>
+                <tr>
+                    <td class="label">No. Telepon</td>
+                    <td><div class="box-input-half">{{ $pesan->nohp ?? '-' }}</div></td>
+                    <td class="label">JUMLAH</td>
+                    <td><div class="box-small">{{ $pesan->jumlah_orang ?? '1' }}</div></td>
+                </tr>
+                <tr>
+                    <td class="label">TUJUAN</td>
+                    <td><div class="box-input-half">{{ $pesan->jadwal->rute->tujuan }}</div></td>
+                    <td class="label">KURSI</td>
+                    <td><div class="box-input-half">{{ $pesan->seet ?? '-' }}</div></td>
+                </tr>
+                <tr>
+                    <td class="label">TARIF</td>
+                    <td><div class="box-input-half">Rp {{ number_format($pesan->harga_total / ($pesan->jumlah_penumpang ?? 1), 0, ',', '.') }}</div></td>
+                    <td class="label">TOTAL</td>
+                    <td><div class="box-total">Rp {{ number_format($pesan->harga_total, 0, ',', '.') }}</div></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Bagian Kanan -->
+        <div class="right">
+        <div>
+            <div class="alamat-cabang">
+                <strong>PALEMBANG</strong><br>
+                Jl. Mayor Santoso No.3112, 2 Ilir RT 11, Ilir Timur II,<br>
+                Kota Palembang, Sumatera Selatan 30131<br><br>
+                <strong>LAMPUNG</strong><br>
+                Jl. Sutami Bandarbaru No.186, Rajabasa, Kota Bandar<br>
+                Lampung, 35152
+            </div>
+            <hr class="header-divider-kanan">
+            <table class="tanggal-waktu">
+                <tr>
+                    <td><strong>TANGGAL</strong></td>
+                    <td>: {{ \Carbon\Carbon::parse($pesan->jadwal->tanggal)->format('d-m-Y') }}</td>
+                </tr>
+                <tr>
+                    <td><strong>WAKTU</strong></td>
+                    <td>: {{ $pesan->jadwal->jam }}</td>
+                </tr>
+            </table>
+        </div>
+            <div class="footer-right">
+                Hormat Kami,<br>
+                <img src="{{ asset('foto/icon.png') }}" alt="TTD">
             </div>
         </div>
-        <hr class="header-divider">
-
-
-      <table class="field-table">
-        <tr>
-          <td class="label">NAMA</td>
-          <td colspan="3"><div class="box-input-long">{{ $pesan->nama_pemesan }}</div></td>
-        </tr>
-        <tr>
-          <td class="label">ALAMAT</td>
-          <td colspan="3"><div class="box-input-long">{{ $pesan->alamat ?? '-' }}</div></td>
-        </tr>
-        <tr>
-          <td class="label">METODE</td>
-          <td colspan="3"><div class="box-input-long">{{ $pesan->jadwal->rute->metode ?? '-' }}</div></td>
-        </tr>
-        <tr>
-          <td class="label">No. Telepon</td>
-          <td><div class="box-input-half">{{ $pesan->nohp ?? '-' }}</div></td>
-          <td class="label">JUMLAH</td>
-          <td><div class="box-small">{{ $pesan->jumlah_orang ?? '1' }}</div></td>
-        </tr>
-        <tr>
-          <td class="label">TUJUAN</td>
-          <td><div class="box-input-half">{{ $pesan->jadwal->rute->tujuan }}</div></td>
-        </tr>
-        <tr>
-          <td class="label">TARIF</td>
-          <td><div class="box-input-half">Rp {{ number_format($pesan->harga_total / ($pesan->jumlah_penumpang ?? 1), 0, ',', '.') }}</div></td>
-          <td class="label">TOTAL</td>
-          <td><div class="box-total">Rp {{ number_format($pesan->harga_total, 0, ',', '.') }}</div></td>
-        </tr>
-      </table>
     </div>
-
-    <!-- Bagian Kanan -->
-    <div class="right">
-      <div>
-        <div class="alamat-cabang">
-          <strong>PALEMBANG</strong><br>
-          Jl. Mayor Santoso No.3112, 2 Ilir RT 11, Ilir Timur II,<br>
-          Kota Palembang, Sumatera Selatan 30131<br><br>
-          <strong>LAMPUNG</strong><br>
-          Jl. Sutami Bandarbaru No.186, Rajabasa, Kota Bandar<br>
-          Lampung, 35152
-        </div>
-        <hr class="header-divider-kanan">
-        <table class="tanggal-waktu">
-          <tr>
-            <td><strong>TANGGAL</strong></td>
-            <td>: {{ \Carbon\Carbon::parse($pesan->jadwal->tanggal)->format('d-m-Y') }}</td>
-          </tr>
-          <tr>
-            <td><strong>WAKTU</strong></td>
-            <td>: {{ $pesan->jadwal->jam }}</td>
-          </tr>
-        </table>
-      </div>
-      <div class="footer-right">
-        Hormat Kami,<br>
-        <img src="{{ asset('foto/icon.png') }}" alt="TTD">
-      </div>
-    </div>
-  </div>
 </body>
 </html>

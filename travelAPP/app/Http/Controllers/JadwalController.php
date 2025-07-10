@@ -14,8 +14,25 @@ class JadwalController extends Controller
 {
     public function index()
     {
-        $jadwal = jadwal::all();
-        return view('jadwal.index')->with('jadwal',$jadwal);
+        $jadwal = jadwal::with(['rute', 'kendaraan', 'sopir'])->get();
+
+        foreach ($jadwal as $j) {
+            $kapasitas = $j->kendaraan->kapasitas ?? 0;
+
+            $kursiTerisi = Pesan::where('jadwal_id', $j->id)
+                ->where('status', '!=', 'Batal')
+                ->pluck('seet')
+                ->flatMap(function ($item) {
+                    return array_map('trim', explode(',', $item));
+                })
+                ->filter()
+                ->unique()
+                ->count();
+
+            $j->sisa_kursi = max(0, $kapasitas - $kursiTerisi); // biar tidak minus
+        }
+
+        return view('jadwal.index')->with('jadwal', $jadwal);
     }
 
     public function create()
