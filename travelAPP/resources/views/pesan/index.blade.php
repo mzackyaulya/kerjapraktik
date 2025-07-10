@@ -70,16 +70,18 @@
                                         </a>
                                     </li>
                                 @endif
-                                @if($item['status'] !== 'Dikonfirmasi')
-                                    <li>
-                                        <form action="{{ route('pesan.konfirmasi', ['id' => $item['id']]) }}" method="POST" onsubmit="return confirm('Konfirmasi pemesanan ini?')">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button class="dropdown-item" type="submit">
-                                                <i class="fas fa-check-circle me-2 text-success"></i> Dikonfirmasi
-                                            </button>
-                                        </form>
-                                    </li>
+                                @if(auth()->user()->role == 'A')
+                                    @if($item['status'] !== 'Dikonfirmasi')
+                                        <li>
+                                            <form action="{{ route('pesan.konfirmasi', ['id' => $item['id']]) }}" method="POST" onsubmit="return confirm('Konfirmasi pemesanan ini?')">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button class="dropdown-item" type="submit">
+                                                    <i class="fas fa-check-circle me-2 text-success"></i> Dikonfirmasi
+                                                </button>
+                                            </form>
+                                        </li>
+                                    @endif
                                 @endif
                                 @if($item['status'] !== 'Batal')
                                 <li>
@@ -150,7 +152,7 @@
                         @endif
 
                         {{-- Batal --}}
-                        @if (auth()->user()->role == 'A' && $item['status'] !== 'Batal')
+                        @if (in_array(auth()->user()->role, ['A','U']) && $item['status'] !== 'Batal')
                             <form action="{{ route('pesan.batal', ['id' => $item['id']]) }}" method="POST" onsubmit="return confirm('Batalkan pemesanan ini?')">
                                 @csrf
                                 @method('PATCH')
