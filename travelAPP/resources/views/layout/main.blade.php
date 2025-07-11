@@ -118,12 +118,14 @@
                                 <div data-i18n="Jadwal" class=" fw-bold text-dark">Jadwal</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="{{ url('pelanggan') }}" class="menu-link">
-                                <i class="menu-icon bi bi-person"></i>
-                                <div data-i18n="Jadwal" class="fw-bold text-dark">Pelanggan</div>
-                            </a>
-                        </li>
+                        @if(auth()->user()->role == 'A')
+                            <li class="menu-item">
+                                <a href="{{ url('pelanggan') }}" class="menu-link">
+                                    <i class="menu-icon bi bi-person"></i>
+                                    <div data-i18n="Jadwal" class="fw-bold text-dark">Pelanggan</div>
+                                </a>
+                            </li>
+                        @endif
                         <li class="menu-item">
                             <a href="{{ url('rute') }}" class="menu-link">
                                 <i class="menu-icon bi bi-map"></i>

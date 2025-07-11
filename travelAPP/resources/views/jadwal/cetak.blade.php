@@ -67,22 +67,31 @@
         </tr>
     </thead>
     <tbody>
-        @forelse ($pesanan as $index => $item)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $item->nama_pemesan }}</td>
-                <td>{{ $item->nohp }}</td>
-                <td>{{ $item->alamat }}</td>
-                <td>{{ $item->jadwal->rute->tujuan }}</td>
-                <td>Rp. {{ number_format($item->jadwal->rute->harga, 0, ',', '.') }}</td>
-            </tr>
+        @php
+            $nomor = 1;
+            $totalPenumpang = 0;
+        @endphp
+        @forelse ($pesanan as $item)
+            @php $jumlah = $item->jumlah_orang ?? 1; @endphp
+            @for ($i = 0; $i < $jumlah; $i++)
+                <tr>
+                    <td>{{ $nomor++ }}</td>
+                    <td>{{ $item->nama_pemesan }}</td>
+                    <td>{{ $item->nohp }}</td>
+                    <td>{{ $item->alamat }}</td>
+                    <td>{{ $item->jadwal->rute->tujuan }}</td>
+                    <td>Rp. {{ number_format($item->jadwal->rute->harga ?? 0, 0, ',', '.') }}</td>
+                </tr>
+            @endfor
+            @php $totalPenumpang += $jumlah; @endphp
         @empty
-            @php $index = 0; @endphp
+            <tr><td colspan="6">Tidak ada data pemesanan.</td></tr>
         @endforelse
 
-        @for ($i = ($index ?? count($pesanan)); $i < 9; $i++)
+        {{-- Baris kosong tambahan agar genap 9 --}}
+        @for ($i = $nomor; $i <= 9; $i++)
             <tr>
-                <td>{{ $i + 1 }}</td>
+                <td>{{ $i }}</td>
                 <td>&nbsp;</td>
                 <td></td>
                 <td></td>
@@ -94,8 +103,8 @@
 </table>
 
 <div class="total">
-    <p>Penumpang {{ count($pesanan) }} x Rp. {{ number_format($jadwal->rute->harga ?? 0, 0, ',', '.') }} = Rp. {{ number_format(($pesanan->sum('harga_total') ?? 0), 0, ',', '.') }}</p>
-    <p>Snack {{ count($pesanan) }} Rp. {{ number_format(count($pesanan) * 10000, 0, ',', '.') }}</p>
+    <p>Penumpang {{ $totalPenumpang }} x Rp. {{ number_format($jadwal->rute->harga ?? 0, 0, ',', '.') }} = Rp. {{ number_format($totalPenumpang * ($jadwal->rute->harga ?? 0), 0, ',', '.') }}</p>
+    <p>Snack {{ $totalPenumpang }} Rp. {{ number_format($totalPenumpang * 10000, 0, ',', '.') }}</p>
 </div>
 
 <div class="line"></div>

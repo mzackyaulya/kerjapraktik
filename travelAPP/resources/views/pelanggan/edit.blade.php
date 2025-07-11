@@ -56,7 +56,7 @@
           </div>
 
           <button type="submit" class="btn btn-primary">Update</button>
-          <a href="{{ url('pelanggan') }}" class="btn btn-transparant">Cancel</a>
+          <a href="{{ route('profile.index') }}" class="btn btn-transparant">Cancel</a>
         </form>
       </div>
     </div>
