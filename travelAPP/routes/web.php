@@ -12,6 +12,7 @@ use App\Http\Controllers\RuteController;
 use App\Http\Controllers\SopirController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Spatie\Sitemap\SitemapGenerator;
 
 Route::get('/', function () {
     return view('welcome');
@@ -105,7 +106,13 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/pesan/{id}/konfirmasi', [PesanController::class, 'konfirmasi'])->name('pesan.konfirmasi');
     Route::patch('/pesan/{id}/batal', [PesanController::class, 'batal'])->name('pesan.batal');
 });
+Route::get('/generate-sitemap', function () {
+    SitemapGenerator::create(config('app.url'))->writeToFile(public_path('sitemap.xml'));
+    return 'Sitemap berhasil dibuat!';
+});
 
-
+Route::get('/generate-sitemap', function () {
+    abort(403); // blokir setelah selesai
+});
 
 require __DIR__.'/auth.php';

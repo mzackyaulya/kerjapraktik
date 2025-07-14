@@ -43,7 +43,7 @@
                             <h5 class="card-title text-center">{{ $item['rute']['asal'] }} ke {{ $item['rute']['tujuan'] }} ({{ $item['rute']['metode'] }})</h5>
                             <div class="mb-2 d-flex">
                                 <strong class="w-50">Kendaraan</strong>
-                                <span>: {{ $item['kendaraan']['merk_mobil'] }}</span>
+                                <span>: {{ $item['kendaraan']['noplat'] }} - {{ $item['kendaraan']['merk_mobil'] }}</span>
                             </div>
                             <div class="mb-2 d-flex">
                                 <strong class="w-50">Sopir</strong>
@@ -61,7 +61,7 @@
                                 <strong class="w-50">Jam</strong>
                                 <span>: {{ $item['jam'] }}</span>
                             </div>
-                            
+
                             <div class="d-flex justify-content-center gap-2 flex-wrap mt-3">
                                 @if(auth()->user()->role == 'A')
                                     <a href="{{ route('jadwal.edit', $item['id']) }}" class="btn btn-info">

@@ -26,34 +26,12 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="alamat">Alamat Sopir</label>
-                        <div class="input-group input-group-merge">
-                            <span class="input-group-text"><i class="bx bx-home"></i></span>
-                            <input type="text" name="alamat" id="alamat" value="{{ old('alamat') }}" class="form-control" placeholder="Masukan Alamat Sopir" required>
-                        </div>
-                        @error('alamat')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
                         <label class="form-label" for="nohp">No HP Sopir</label>
                         <div class="input-group input-group-merge">
                             <span class="input-group-text"><i class="bx bx-phone"></i></span>
                             <input type="number" name="nohp" id="nohp" value="{{ old('nohp') }}" class="form-control" placeholder="Masukan No HP Sopir" required>
                         </div>
                         @error('nohp')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="nosim">No SIM Sopir</label>
-                        <div class="input-group input-group-merge">
-                            <span class="input-group-text"><i class="bx bx-id-card"></i></span>
-                            <input type="text" name="nosim" id="nosim" value="{{ old('nosim') }}" class="form-control" placeholder="Masukan No SIM Sopir" required>
-                        </div>
-                        @error('nosim')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>

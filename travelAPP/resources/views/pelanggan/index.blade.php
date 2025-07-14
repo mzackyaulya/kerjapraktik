@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <div class="card-body">
+    <div class="card-body d-none d-md-block">
         <table class="table table-bordered" id="pelangganTable">
             <thead>
                 <tr>
@@ -49,7 +49,7 @@
                             </div>
                         </td>
                     </tr>
-                    
+
                 @empty
                     <tr>
                         <td colspan="6" class="text-center">Belum ada data pelanggan.</td>
@@ -60,6 +60,26 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    {{-- Tampilan Mobile --}}
+    <div class="card-body d-block d-md-none" id="mobileCards">
+        @foreach ($pelanggan as $item)
+            <div class="card mb-3 shadow-sm border border-light searchable-card">
+                <div class="card-body d-flex align-items-center">
+                    <img
+                        src="{{ $item['foto'] ? asset('foto/pelanggan/' . $item['foto']) : url('assets/img/avatars/1.png') }}"
+                        alt="Foto Pelanggan"
+                        style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%; margin-right: 15px;" />
+                    <div style="flex: 1;">
+                        <h6 class="mb-1 fw-bold">{{ $item['name'] }}</h6>
+                        <p class="mb-0"><strong>Alamat:</strong> {{ $item['alamat'] }}</p>
+                        <p class="mb-1"><strong>No HP:</strong> {{ $item['nohp'] }}</p>
+                        <a href="{{ route('pelanggan.edit', $item['id']) }}" class="btn btn-sm btn-outline-primary mt-1">Edit</a>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
 </div>
 

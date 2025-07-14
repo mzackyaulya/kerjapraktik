@@ -39,7 +39,7 @@
                                 <option value="">Pilih Kendaraan</option>
                                 @foreach ($kendaraan as $items)
                                     <option value="{{$items['id']}}" {{ old('kendaraan_id') == $items['id'] ? 'selected' : '' }}>
-                                        {{ $items['merk_mobil'] }} - {{ $items['warna'] }}
+                                        {{ $items['noplat'] }} - {{ $items['merk_mobil'] }} - {{ $items['warna'] }}
                                     </option>
                                 @endforeach
                             </select>
@@ -57,7 +57,7 @@
                                 <option value="">Pilih Sopir</option>
                                 @foreach ($sopir as $items)
                                     <option value="{{$items['id']}}" {{ old('sopir_id') == $items['id'] ? 'selected' : '' }}>
-                                        {{ $items['nama'] }} - {{ $items['alamat'] }} - {{ $items['status'] }}
+                                        {{ $items['nama'] }} - {{ $items['nohp'] }} - {{ $items['status'] }}
                                     </option>
                                 @endforeach
                             </select>

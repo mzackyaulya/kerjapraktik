@@ -26,8 +26,6 @@
                         <th class="text-center">No</th>
                         <th class="text-center">Nama</th>
                         <th class="text-center">No HP</th>
-                        <th class="text-center">Alamat</th>
-                        <th class="text-center">No Sim</th>
                         <th class="text-center">Status</th>
                         @if(auth()->user()->role == 'A')
                             <th class="text-center">Aksi</th>
@@ -40,8 +38,6 @@
                                 <td class="text-center">{{ $index + 1 }}</td>
                                 <td class="text-center">{{ $item['nama'] }}</td>
                                 <td class="text-center">{{ $item['nohp'] }}</td>
-                                <td class="text-center">{{ $item['alamat'] }}</td>
-                                <td class="text-center">{{ $item['nosim'] }}</td>
                                 <td class="text-center">
                                     <span class="badge {{ $item['status'] == 'Aktif' ? 'bg-success' : 'bg-danger' }}">
                                         {{ $item['status'] }}

@@ -12,8 +12,6 @@ return new class extends Migration
             $table->uuid('id')-> primary();
             $table->string('nama');
             $table->string('nohp');
-            $table->string('alamat');
-            $table->string('nosim');
             $table->enum('status', ['Aktif', 'Nonaktif'])->default('Aktif');
             $table->timestamps();
         });

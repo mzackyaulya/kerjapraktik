@@ -168,6 +168,9 @@
     </div>
 </div>
 
+<!-- Audio untuk notifikasi -->
+<audio id="notif-audio" src="{{ asset('notif.mp3') }}" preload="auto"></audio>
+
 {{-- JS --}}
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -199,6 +202,7 @@
 </script>
 @endif
 
+{{-- Kursi --}}
 <script>
     const inputJumlahOrang = document.querySelector('#jumlah_orang');
     const checkboxKursi = document.querySelectorAll('.kotak-kursi');
@@ -239,5 +243,39 @@
     checkboxKursi.forEach(cb => cb.addEventListener('change', perbaruiKursi));
     perbaruiKursi();
 </script>
+
+{{-- Notifikasi Pemesanan Masuk --}}
+<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+<script>
+    Pusher.logToConsole = false;
+
+    const pusher = new Pusher('{{ env('VITE_PUSHER_APP_KEY') }}', {
+        cluster: '{{ env('VITE_PUSHER_APP_CLUSTER') }}',
+        forceTLS: true
+    });
+
+    const channel = pusher.subscribe('pemesanan-channel');
+
+    channel.bind('pemesanan-masuk', function(data) {
+        const audio = document.getElementById('notif-audio');
+        if (audio) audio.play();
+        
+        Swal.fire({
+            title: 'Pemesanan Baru!',
+            text: 'Pesanan dari: ' + data.nama,
+            icon: 'info',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
+        });
+
+        // opsional: reload data
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
+    });
+</script>
+
 
 @endsection

@@ -28,8 +28,6 @@ class SopirController extends Controller
         $val = $request -> validate([
             'nama'      => 'required|string|max:45',
             'nohp'      => 'required|string|max:20',
-            'alamat'    => 'required',
-            'nosim'     => 'nullable|string|max:45',
             'status'    => 'required|in:Aktif,Nonaktif'
         ]);
 
@@ -56,8 +54,6 @@ class SopirController extends Controller
         $val = $request -> validate([
             'nama'      => 'required|string|max:45',
             'nohp'      => 'required|string|max:20',
-            'alamat'    => 'required',
-            'nosim'     => 'nullable|string|max:45',
             'status'    => 'required|in:Aktif,Nonaktif'
         ]);
 

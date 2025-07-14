@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\jadwal;
 use App\Models\pesan;
 use Illuminate\Http\Request;
+use App\Events\PemesananBaru;
 use Illuminate\Support\Facades\DB;
 
 
@@ -126,6 +127,7 @@ class PesanController extends Controller
             'harga_total' => $totalHarga,
             'status' => 'Pending',
         ]);
+        event(new PemesananBaru($request->nama_pemesan));
 
         return redirect()->route('pesan.index')->with('success', 'Pemesanan berhasil.');
     }
